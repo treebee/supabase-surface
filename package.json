@@ -3,13 +3,13 @@
   "version": "0.0.1",
   "description": "Surface Components for Supabase.",
   "license": "MIT",
-  "main": "./priv/static/surface_supabase.js",
+  "main": "./priv/static/js/surface_supabase.js",
   "author": "Patrick Muehlbauer <pm.muehlbauer@gmail.com>",
   "files": [
     "README.md",
     "LICENSE.md",
     "package.json",
-    "priv/static/supabase_surface.js",
+    "priv/static/js/supabase_surface.js",
     "assets/js/supabase_surface.js"
   ]
 }
