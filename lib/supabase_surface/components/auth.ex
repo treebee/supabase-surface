@@ -74,7 +74,7 @@ defmodule SupabaseSurface.Components.Auth do
     socket =
       case Supabase.auth()
            |> GoTrue.send_magic_link(email) do
-        {:ok, _} -> assign(socket, msg: "Check your emails for a magic link", type: :default)
+        :ok -> assign(socket, msg: "Check your emails for a magic link", type: :default)
         {:error, %{"code" => 422, "msg" => msg}} -> assign(socket, msg: msg, type: :danger)
         _ -> assign(socket, msg: "Something went wrong. Please try again.", type: :danger)
       end
@@ -84,10 +84,12 @@ defmodule SupabaseSurface.Components.Auth do
 
   @impl true
   def handle_event("authorize", %{"provider" => provider}, socket) do
-    url = provider_url(provider)
+    url = provider_url(provider) <> "&apikey=#{Application.get_env(:supabase, :api_key)}"
     {:noreply, redirect(socket, external: url)}
   end
 
   defp provider_url(provider),
-    do: Supabase.Connection.new().base_url <> "/auth/v1/authorize?provider=#{provider}"
+    do:
+      Supabase.Connection.new().base_url <>
+        "/auth/v1/authorize?provider=#{provider}"
 end

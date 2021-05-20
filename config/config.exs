@@ -7,14 +7,6 @@
 # General application configuration
 use Mix.Config
 
-# Configures the endpoint
-config :supabase_surface, SupabaseSurfaceWeb.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "YyVKu2KfFGik5JJpT8LdRmjxInYijYA2p3mjwKvh/j3IKgqJFmDLJsfyVwoGbQDF",
-  render_errors: [view: SupabaseSurfaceWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: SupabaseSurface.PubSub,
-  live_view: [signing_salt: "gHl0T5g7"]
-
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

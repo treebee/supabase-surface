@@ -26,7 +26,6 @@ defmodule SupabaseSurface.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {SupabaseSurface.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -54,7 +53,8 @@ defmodule SupabaseSurface.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:surface_catalogue, "~> 0.0.8", only: [:dev, :test]},
       {:supabase, github: "treebee/supabase-elixir"},
-      {:heroicons, "~> 0.2.2"}
+      {:heroicons, "~> 0.2.2"},
+      {:joken, "~> 2.0"}
     ]
   end
 
