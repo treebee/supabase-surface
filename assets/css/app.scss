@@ -4,6 +4,8 @@
 
 @import "tailwindcss/utilities";
 
+@import "./button";
+
 /* LiveView specific classes for your customizations */
 .phx-no-feedback.invalid-feedback,
 .phx-no-feedback .invalid-feedback {
