@@ -9,6 +9,9 @@ defmodule SupabaseSurface.Components.Button do
     values: ["primary", "default", "secondary", "outline", "dashed", "link", "text"],
     default: "primary"
 
+  @doc "Use the full width"
+  prop block, :boolean, default: false
+
   @doc "The content"
   slot default
 
@@ -29,6 +32,8 @@ defmodule SupabaseSurface.Components.Button do
       "sbui-btn-#{assigns.type}",
       "sbui-btn--#{assigns.size}"
     ]
+
+    classes = if assigns.block, do: ["sbui-btn--w-full" | classes], else: classes
 
     Enum.join(classes, " ")
   end
