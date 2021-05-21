@@ -9,6 +9,12 @@ defmodule SupabaseSurface.Components.Button do
 
   import Surface.Components.Utils
 
+  @doc "The html type of the button, e.g. 'submit', 'button' or 'reset'"
+  prop html_type, :string, values: ["submit", "button", "reset"], default: "button"
+
+  @doc "The aria label for the button"
+  prop aria_label, :string, required: false
+
   @doc "The size of the button"
   prop size, :string, values: ["tiny", "small", "medium", "large", "xlarge"], default: "tiny"
 
@@ -71,7 +77,9 @@ defmodule SupabaseSurface.Components.Button do
     ~H"""
     <button
       id={{ @id }}
+      type={{ @html_type }}
       class={{ @class, build_classes(assigns) }}
+      aria_label={{ @aria_label }}
       :attrs={{ attrs }}
     >
       <slot />
