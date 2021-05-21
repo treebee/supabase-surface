@@ -12,14 +12,17 @@ defmodule SupabaseSurface.Components.Button do
   @doc "Use the full width"
   prop block, :boolean, default: false
 
-  @doc "The content"
+  @doc "The content of the generated `<button>` element"
   slot default
+
+  @doc "Class or classes to apply to the button"
+  prop class, :css_class
 
   @impl true
   def render(assigns) do
     ~H"""
     <button
-      class={{ build_classes(assigns) }}>
+      class={{ @class, build_classes(assigns) }}>
       <slot />
     </button>
     """
