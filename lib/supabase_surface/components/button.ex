@@ -1,5 +1,8 @@
 defmodule SupabaseSurface.Components.Button do
   use Surface.Component
+  use Surface.Components.Events
+
+  import Surface.Components.Utils
 
   @doc "The size of the button"
   prop size, :string, values: ["tiny", "small", "medium", "large", "xlarge"], default: "tiny"
@@ -18,11 +21,19 @@ defmodule SupabaseSurface.Components.Button do
   @doc "Class or classes to apply to the button"
   prop class, :css_class
 
+  @doc "Additional attributes to add onto the generated element"
+  prop opts, :keyword, default: []
+
   @impl true
   def render(assigns) do
+    opts = assigns.opts ++ events_to_opts(assigns)
+    attrs = opts_to_attrs(opts)
+
     ~H"""
     <button
-      class={{ @class, build_classes(assigns) }}>
+      class={{ @class, build_classes(assigns) }}
+      :attrs={{ attrs }}
+    >
       <slot />
     </button>
     """
