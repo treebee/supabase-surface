@@ -1,3 +1,5 @@
+# some code directly taken from Surface
+# https://github.com/surface-ui/surface/blob/master/lib/surface/components/link/button.ex
 defmodule SupabaseSurface.Components.Button do
   use Surface.Component
   use Surface.Components.Events
@@ -15,6 +17,11 @@ defmodule SupabaseSurface.Components.Button do
   @doc "Use the full width"
   prop block, :boolean, default: false
 
+  @doc """
+  The label for the generated `<button>` element, if no content (default slot) is provided.
+  """
+  prop label, :string
+
   @doc "The content of the generated `<button>` element"
   slot default
 
@@ -23,6 +30,12 @@ defmodule SupabaseSurface.Components.Button do
 
   @doc "Additional attributes to add onto the generated element"
   prop opts, :keyword, default: []
+
+  @impl true
+  def update(assigns, socket) do
+    valid_label!(assigns)
+    {:ok, assign(socket, assigns)}
+  end
 
   @impl true
   def render(assigns) do
@@ -50,5 +63,11 @@ defmodule SupabaseSurface.Components.Button do
     classes = if assigns.block, do: ["sbui-btn--w-full" | classes], else: classes
 
     Enum.join(classes, " ")
+  end
+
+  defp valid_label!(assigns) do
+    unless assigns[:default] || assigns[:label] || Keyword.get(assigns.opts, :label) do
+      raise ArgumentError, "<Button /> requires a label prop or contents in the default slot"
+    end
   end
 end
