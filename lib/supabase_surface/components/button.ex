@@ -1,6 +1,9 @@
 # some code directly taken from Surface
 # https://github.com/surface-ui/surface/blob/master/lib/surface/components/link/button.ex
 defmodule SupabaseSurface.Components.Button do
+  @moduledoc """
+  A html **button** with predefined sizes, types and optional `link` functionality.
+  """
   use Surface.Component
   use Surface.Components.Events
 
@@ -22,8 +25,14 @@ defmodule SupabaseSurface.Components.Button do
   """
   prop label, :string
 
-  @doc "The content of the generated `<button>` element"
-  slot default
+  @doc "The page to link to"
+  prop to, :string
+
+  @doc "The method to use when used as a link"
+  prop method, :atom, default: :post
+
+  @doc "Id to apply to the button"
+  prop id, :string
 
   @doc "Class or classes to apply to the button"
   prop class, :css_class
@@ -31,19 +40,37 @@ defmodule SupabaseSurface.Components.Button do
   @doc "Additional attributes to add onto the generated element"
   prop opts, :keyword, default: []
 
+  @doc "The content of the generated `<button>` element"
+  slot default
+
   @impl true
   def update(assigns, socket) do
     valid_label!(assigns)
     {:ok, assign(socket, assigns)}
   end
 
+  defp apply_method(nil, _, opts), do: opts
+
+  defp apply_method(to, method, opts) do
+    to = valid_destination!(to, "<Button />")
+
+    if method == :get do
+      opts = skip_csrf(opts)
+      [data: [method: method, to: to]] ++ opts
+    else
+      {csrf_data, opts} = csrf_data(to, opts)
+      [data: [method: method, to: to] ++ csrf_data] ++ opts
+    end
+  end
+
   @impl true
   def render(assigns) do
-    opts = assigns.opts ++ events_to_opts(assigns)
+    opts = apply_method(assigns.to, assigns.method, assigns.opts) ++ events_to_opts(assigns)
     attrs = opts_to_attrs(opts)
 
     ~H"""
     <button
+      id={{ @id }}
       class={{ @class, build_classes(assigns) }}
       :attrs={{ attrs }}
     >
