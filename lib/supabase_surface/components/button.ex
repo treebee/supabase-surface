@@ -46,6 +46,9 @@ defmodule SupabaseSurface.Components.Button do
   @doc "Additional attributes to add onto the generated element"
   prop opts, :keyword, default: []
 
+  @doc "If the button should be disabled"
+  prop disabled, :boolean, default: false
+
   @doc "The content of the generated `<button>` element"
   slot default
 
@@ -81,6 +84,7 @@ defmodule SupabaseSurface.Components.Button do
       class={{ @class, build_classes(assigns) }}
       aria_label={{ @aria_label }}
       :attrs={{ attrs }}
+      disabled={{ @disabled }}
     >
       <slot />
     </button>
