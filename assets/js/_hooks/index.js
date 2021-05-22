@@ -9,11 +9,9 @@ function ns(hooks, nameSpace) {
 }
 
 import * as c1 from "./SupabaseSurface.Components.Auth.hooks"
-import * as c2 from "./SupabaseSurfaceDemoWeb.Components.Avatar.hooks"
 
 let hooks = Object.assign(
-  ns(c1, "SupabaseSurface.Components.Auth"),
-  ns(c2, "SupabaseSurfaceDemoWeb.Components.Avatar")
+  ns(c1, "SupabaseSurface.Components.Auth")
 )
 
 export default hooks
