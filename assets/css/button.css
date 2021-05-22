@@ -1,6 +1,4 @@
-/*
-    https://github.com/supabase/ui/blob/develop/src/components/Button/Button.module.css
-**/
+/* https://github.com/supabase/ui/blob/develop/src/components/Button/Button.module.css */
 
 .sbui-btn-container {
   @apply inline-flex font-medium;

@@ -1,10 +1,11 @@
 @import "tailwindcss/base";
 
-@import "tailwindcss/components";
-
-@import "tailwindcss/utilities";
-
+@import "./space.css";
+@import "./form_layout.css";
+@import "./input.css";
 @import "./button";
+
+@import "tailwindcss/components";
 
 /* LiveView specific classes for your customizations */
 .phx-no-feedback.invalid-feedback,
@@ -101,3 +102,5 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px rgba(38, 38, 38, 1) inset !important;
   -webkit-text-fill-color: white !important;
 }
+
+@import "tailwindcss/utilities";
