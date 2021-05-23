@@ -84,7 +84,7 @@ defmodule SupabaseSurface.Components.Auth do
 
   @impl true
   def handle_event("authorize", %{"provider" => provider}, socket) do
-    url = provider_url(provider) <> "&apikey=#{Application.get_env(:supabase, :api_key)}"
+    url = provider_url(provider)
     {:noreply, redirect(socket, external: url)}
   end
 
