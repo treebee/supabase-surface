@@ -1,4 +1,42 @@
 defmodule SupabaseSurface.Components.Auth do
+  @moduledoc """
+  A Surface component that handles auth for Supabase.
+
+  It uses a Surface hook to parse the tokens that are provided after a successful
+  login in the URI fragment ({base_url}/login#access_token=user-jwt&refresh_token=user-refresh-jwt).
+
+  The tokens are then send to an API endpoint (default: `/session`) to set them in the session.
+  This endpoint has to be provided by the user.
+
+  ## Session Setup Example
+
+      defmodule YourSurfaceAppWeb.SessionController do
+        use YourSurfaceAppWeb, :controller
+
+        def set_session(conn, %{"access_token" => access_token, "refresh_token" => refresh_token}) do
+          conn
+          |> put_session(:access_token, access_token)
+          |> put_session(:refresh_token, refresh_token)
+          |> json("ok")
+        end
+
+      end
+
+      # router.ex
+
+      scope "/", YourSurfaceAppWeb do
+        pipe_through(:api)
+
+        post("/session", SessionController, :set_session)
+      end
+
+  It currently supports `magic link` and social providers:
+
+  ## Usage Example
+
+      <Auth redirect_url="/welcome" magic_link={{ true }} providers={{ ["google", "github"] }} />
+
+  """
   use Surface.LiveComponent
 
   alias Surface.Components.Form
@@ -6,8 +44,13 @@ defmodule SupabaseSurface.Components.Auth do
   alias SupabaseSurface.Components.Typography.Text
   alias SupabaseSurface.Components.Icons.SocialIcon
 
-  @doc "URL to redirect to after successful login"
+  @doc "URL to redirect to after successful login handled by this component. In case you want
+  to be redirected to a different location by the provider, use `provider_redirect_url`."
   prop(redirect_url, :string, default: "/")
+
+  @doc "URL the provider should redirect after successful authentication. The target
+  location will have to handle the passed token information."
+  prop(provider_redirect_url, :string)
 
   @doc "API endpoint for updating the session with access_token and refresh_token"
   prop(session_url, :string, default: "/session")
@@ -84,12 +127,17 @@ defmodule SupabaseSurface.Components.Auth do
 
   @impl true
   def handle_event("authorize", %{"provider" => provider}, socket) do
-    url = provider_url(provider)
+    url = provider_url(provider, redirect_to: Map.get(socket.assigns, :provider_redirect_url))
     {:noreply, redirect(socket, external: url)}
   end
 
-  defp provider_url(provider),
-    do:
-      Supabase.Connection.new().base_url <>
-        "/auth/v1/authorize?provider=#{provider}"
+  defp provider_url(provider, options) do
+    redirect_to = Keyword.get(options, :redirect_to)
+    base_url = Supabase.Connection.new().base_url <> "/auth/v1/authorize?provider=#{provider}"
+
+    case redirect_to do
+      nil -> base_url
+      redirect_to -> base_url <> "&redirect_to=#{redirect_to}"
+    end
+  end
 end
