@@ -1,0 +1,5 @@
+/* https://github.com/supabase/ui/blob/develop/src/components/Typography/Link.module.css */
+
+a.sbui-typography-link {
+  @apply text-sm text-brand-700 dark:text-brand-700 cursor-pointer;
+}
