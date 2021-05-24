@@ -4,6 +4,8 @@
 @import "./form_layout.css";
 @import "./input.css";
 @import "./button";
+@import "./card.css";
+@import "./dropdown.css";
 
 @import "tailwindcss/components";
 
@@ -102,5 +104,7 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px rgba(38, 38, 38, 1) inset !important;
   -webkit-text-fill-color: white !important;
 }
-
+[x-cloak] {
+  display: none !important;
+}
 @import "tailwindcss/utilities";
