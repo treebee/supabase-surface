@@ -149,13 +149,15 @@ defmodule SupabaseSurface.Components.Dropdown do
   @doc "A tailwind class for `right/left` positioning of the dropdown, e.g. `right-0.5` or `-left-1`"
   prop x_position, :string
 
+  @doc "A tailwind class for `top/bottom` positioning of the dropdown, e.g. `top-0.5` or `-bottom-1`"
+  prop y_position, :string
+
   @impl true
   def render(assigns) do
     ~H"""
-    <div>
       <div
         x-data="{ open: false }"
-        class="relative">
+        class="relative flex items-center">
           <slot
             @click="open = !open"
             @click.away="open = false"
@@ -168,7 +170,7 @@ defmodule SupabaseSurface.Components.Dropdown do
           x-transition:enter-end={{ Keyword.get(@transition, :enter_end, nil)}}
           x-transition:leave-start={{ Keyword.get(@transition, :leave_start, nil)}}
           x-transition:leave-end={{ Keyword.get(@transition, :leave_end, nil)}}
-          class={{ "absolute mt-2 z-10 sbui-dropdown__content", @x_position }}
+          class={{ "absolute z-10 sbui-dropdown__content", @y_position, @x_position }}
           role="menu" aria-orientation="vertical" data-orientation="vertical"
         >
           <div :for.index={{ @items }} class="hover:bg-dark-600">
@@ -176,7 +178,6 @@ defmodule SupabaseSurface.Components.Dropdown do
           </div>
        </div>
       </div>
-    </div>
     """
   end
 end
