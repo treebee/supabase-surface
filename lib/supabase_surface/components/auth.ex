@@ -62,7 +62,9 @@ defmodule SupabaseSurface.Components.Auth do
   prop(magic_link, :boolean, default: true)
 
   @doc "Providers to use for social auth"
-  prop(providers, :list)
+  prop(providers, :list,
+    values: ["google", "github", "gitlab", "bitbucket", "twitter", "facebook"]
+  )
 
   data(user, :map, default: %{"email" => ""})
   data(msg, :string, default: nil)
