@@ -149,18 +149,18 @@ defmodule SupabaseSurface.Components.Dropdown do
   @doc "Tailwind transition classes to apply to the dropdown."
   prop transition, :keyword
 
-  @doc "A tailwind class for `right/left` positioning of the dropdown, e.g. `right-0.5` or `-left-1`"
-  prop x_position, :string
+  @doc "Where to put the dropdown"
+  prop side, :string, values: ["top", "bottom", "left", "right"], default: "bottom"
 
-  @doc "A tailwind class for `top/bottom` positioning of the dropdown, e.g. `top-0.5` or `-bottom-1`"
-  prop y_position, :string
+  @doc "How to align the dropdown"
+  prop align, :string, values: ["start", "end", "center"], default: "center"
 
   @impl true
   def render(assigns) do
     ~H"""
       <div
         x-data="{ open: false }"
-        class="relative flex items-center">
+        class="relative inline-block">
           <slot
             @click="open = !open"
             @click.away="open = false"
@@ -173,7 +173,7 @@ defmodule SupabaseSurface.Components.Dropdown do
           x-transition:enter-end={{ Keyword.get(@transition, :enter_end, nil)}}
           x-transition:leave-start={{ Keyword.get(@transition, :leave_start, nil)}}
           x-transition:leave-end={{ Keyword.get(@transition, :leave_end, nil)}}
-          class={{ "absolute z-10 sbui-dropdown__content", @y_position, @x_position }}
+          class={{ "absolute z-10 sbui-dropdown__content", position_class(@side, @align) }}
           role="menu" aria-orientation="vertical" data-orientation="vertical"
         >
           <slot :for.index={{ @items }} name="items" index={{ index }} />
@@ -181,4 +181,13 @@ defmodule SupabaseSurface.Components.Dropdown do
       </div>
     """
   end
+
+  defp position_class("bottom", "center"), do: "left-1/2 transform -translate-x-1/2 mt-2"
+  defp position_class("bottom", "start"), do: "mt-2"
+  defp position_class("bottom", "end"), do: "right-0 mt-2"
+  defp position_class("top", "center"), do: "left-1/2 transform -translate-x-1/2 bottom-full mb-2"
+  defp position_class("top", "start"), do: "bottom-full mb-2"
+  defp position_class("top", "end"), do: "bottom-full right-0 mb-2"
+  defp position_class("right", "center"), do: "top-1/2 left-full transform -translate-y-1/2 ml-2"
+  defp position_class("left", "center"), do: "top-1/2 right-full transform -translate-y-1/2 mr-2"
 end
