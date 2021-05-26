@@ -48,6 +48,17 @@ And for the styles, in case of a standard phoenix live view project:
 @import "supabase_surface";
 ```
 
+## Component Catalogue
+
+You can also checkout the Repository and start the component catalogue to have live documentation:
+
+    mix deps.get
+    mix dev
+
+    # or for another port
+
+    PORT=4444 mix dev
+
 ## Credits
 
 - **SupabaseUI**: we use a copy of CSS files and the TailwindCSS config

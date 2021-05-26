@@ -3,7 +3,7 @@ defmodule SupabaseSurface.Components.Auth do
   A Surface component that handles auth for Supabase.
 
   It uses a Surface hook to parse the tokens that are provided after a successful
-  login in the URI fragment ({base_url}/login#access_token=user-jwt&refresh_token=user-refresh-jwt).
+  login in the URI fragment (`{base_url}/login#access_token=user-jwt&refresh_token=user-refresh-jwt`).
 
   The tokens are then send to an API endpoint (default: `/session`) to set them in the session.
   This endpoint has to be provided by the user.
@@ -30,7 +30,7 @@ defmodule SupabaseSurface.Components.Auth do
         post("/session", SessionController, :set_session)
       end
 
-  It currently supports `magic link` and social providers:
+  It currently supports **magic link** and **social providers**:
 
   ## Usage Example
 

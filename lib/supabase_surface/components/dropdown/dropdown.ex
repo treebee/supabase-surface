@@ -5,10 +5,10 @@ defmodule SupabaseSurface.Components.DropdownItemIcon do
 
   ## Example
 
-    <DropdownItem to="/logout" method={{ :post }}>
-      <DropdownItemIcon>{{ Heroicons.Outline.logout(class: "w-4 h-4") }}</DropdownItemIcon>
-      <Typography.Text>Logout</Typography.text>
-    </DropdownItem>
+      <DropdownItem to="/logout" method={{ :post }}>
+        <DropdownItemIcon>{{ Heroicons.Outline.logout(class: "w-4 h-4") }}</DropdownItemIcon>
+        <Typography.Text>Logout</Typography.text>
+      </DropdownItem>
   """
   use Surface.Component, slot: "icon"
 
@@ -41,10 +41,13 @@ defmodule SupabaseSurface.Components.DropdownItem do
   @doc "An optional icon for this dropdown item. See DropdownItemIcon."
   slot icon, required: false
 
+  @doc "Additional CSS class(es) to apply to the dropdown item"
+  prop class, :css_class
+
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="flex align-center sbui-dropdown-item" role="menuitem">
+    <div tabindex="-1" class={{ "flex align-center sbui-dropdown-item", @class }} role="menuitem">
       <slot name="icon" />
       <span class="sbui-dropdown-item__content">
         {{ render_content(assigns) }}
@@ -104,31 +107,31 @@ defmodule SupabaseSurface.Components.Dropdown do
 
   ## Example
 
-    <Dropdown id="user-menu"
-      transition={{
-        enter: "transition ease-out origin-top-left duration-200",
-        enter_start: "opacity-0 transform scale-90",
-        enter_end: "opacity-100 transform scale-100",
-        leave: "transition origin-top-left ease-in duration-100",
-        leave_start: "opacity-100 transform scale-100",
-        leave_end: "opacity-0 transform scale-90"
-      }}
-    >
-      <DropdownItem to="/profile">
-        <DropdownItemIcon>{{ Heroicons.Outline.user(class: "w-4 h-4") }}</DropdownItemIcon>
-        <Typography.Text>Profile</Typography.Text>
-      </DropdownItem>
-      <DropdownItem to="/logout" method={{ :post }}>
-        <DropdownItemIcon>{{ Heroicons.Outline.logout(class: "w-4 h-4") }}</DropdownItemIcon>
-        <Typography.Text>Logout</Typography.Text>
-      </DropdownItem>
-      <Button
-        type="link"
-        opts={{ "@click": "open = !open", "@click.away": "open = false", "@keydown.escape.window": "open = false" }}
+      <Dropdown id="user-menu"
+        transition={{
+          enter: "transition ease-out origin-top-left duration-200",
+          enter_start: "opacity-0 transform scale-90",
+          enter_end: "opacity-100 transform scale-100",
+          leave: "transition origin-top-left ease-in duration-100",
+          leave_start: "opacity-100 transform scale-100",
+          leave_end: "opacity-0 transform scale-90"
+        }}
       >
-        Click me
-      </Button>
-    </Dropdown>
+        <DropdownItem to="/profile">
+          <DropdownItemIcon>{{ Heroicons.Outline.user(class: "w-4 h-4") }}</DropdownItemIcon>
+          <Typography.Text>Profile</Typography.Text>
+        </DropdownItem>
+        <DropdownItem to="/logout" method={{ :post }}>
+          <DropdownItemIcon>{{ Heroicons.Outline.logout(class: "w-4 h-4") }}</DropdownItemIcon>
+          <Typography.Text>Logout</Typography.Text>
+        </DropdownItem>
+        <Button
+          type="link"
+          opts={{ "@click": "open = !open", "@click.away": "open = false", "@keydown.escape.window": "open = false" }}
+        >
+          Click me
+        </Button>
+      </Dropdown>
 
   Note: Alpine.js is used here to avoid needing a complete server roundtrip just to open the dropdown.
   As a result this can provide better UX.
@@ -173,9 +176,7 @@ defmodule SupabaseSurface.Components.Dropdown do
           class={{ "absolute z-10 sbui-dropdown__content", @y_position, @x_position }}
           role="menu" aria-orientation="vertical" data-orientation="vertical"
         >
-          <div :for.index={{ @items }} class="hover:bg-dark-600">
-            <slot name="items" index={{ index }} />
-          </div>
+          <slot :for.index={{ @items }} name="items" index={{ index }} />
        </div>
       </div>
     """
