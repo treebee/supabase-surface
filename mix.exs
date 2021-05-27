@@ -52,6 +52,7 @@ defmodule SupabaseSurface.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:surface_catalogue, "~> 0.0.8", only: [:dev, :test]},
+      {:surface, "~> 0.4.0", override: true},
       {:supabase, "~> 0.1.0"},
       {:heroicons, "~> 0.2.2"},
       {:joken, "~> 2.0"}

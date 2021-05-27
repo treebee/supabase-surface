@@ -85,9 +85,7 @@ defmodule SupabaseSurface.Components.Button do
       aria_label={{ @aria_label }}
       :attrs={{ attrs }}
       disabled={{ @disabled }}
-    >
-      <slot />
-    </button>
+    ><slot /></button>
     """
   end
 
