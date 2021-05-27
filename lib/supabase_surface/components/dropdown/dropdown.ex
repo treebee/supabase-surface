@@ -138,7 +138,7 @@ defmodule SupabaseSurface.Components.Dropdown do
 
   """
 
-  use Surface.LiveComponent
+  use Surface.Component
 
   @doc "The dropdown items"
   slot items, required: true
@@ -147,7 +147,7 @@ defmodule SupabaseSurface.Components.Dropdown do
   slot default, required: true
 
   @doc "Tailwind transition classes to apply to the dropdown."
-  prop transition, :keyword
+  prop transition, :keyword, default: []
 
   @doc "Where to put the dropdown"
   prop side, :string, values: ["top", "bottom", "left", "right"], default: "bottom"

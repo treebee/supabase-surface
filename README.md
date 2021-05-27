@@ -1,11 +1,9 @@
-# SupabaseSurface
+# SupabaseSurface (WIP)
 
 A component library for [Supabase](supabase.io) and [Surface](https://surface-ui.org/).
 
 [Here](https://github.com/treebee/supabase_surface_demo) you can find a demo application
 using this project.
-
-> **Work in Progress**
 
 This library can be used in a
 [Phoenix LiveView](https://github.com/phoenixframework/phoenix_live_view) project
