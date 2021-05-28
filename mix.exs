@@ -13,8 +13,8 @@ defmodule SupabaseSurface.MixProject do
       deps: deps(),
       package: [
         name: "supabase_surface",
-        description: "Components for Supabase.io",
-        licenses: "Apache-2.0",
+        description: "Supabase UI for Surface",
+        licenses: ["Apache-2.0"],
         links: %{github: "https://github.com/treebee/supabase_surface"},
         files:
           ~w(lib .formatter.exs mix.exs README.md assets/js assets/css priv assets/package.json LICENSE)
