@@ -4,7 +4,7 @@ defmodule SupabaseSurface.MixProject do
   def project do
     [
       app: :supabase_surface,
-      version: "0.1.1",
+      version: "0.1.2",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers() ++ [:surface],
@@ -17,7 +17,7 @@ defmodule SupabaseSurface.MixProject do
         licenses: ["Apache-2.0"],
         links: %{github: "https://github.com/treebee/supabase_surface"},
         files:
-          ~w(lib .formatter.exs mix.exs README.md assets/js assets/css priv/static assets/package.json LICENSE)
+          ~w(lib .formatter.exs mix.exs README.md assets/js assets/css priv/static assets/package.json LICENSE package.json)
       ]
     ]
   end
