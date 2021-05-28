@@ -1,4 +1,4 @@
-# SupabaseSurface (WIP)
+# Supabase UI for Surface (WIP)
 
 A component library for [Supabase](supabase.io) and [Surface](https://surface-ui.org/).
 
@@ -45,6 +45,21 @@ And for the styles, in case of a standard phoenix live view project:
 /* app.scss */
 @import "supabase_surface";
 ```
+
+`supabase-surface` uses AlpineJS, so you will have to add
+
+```javascript
+let liveSocket = new LiveSocket("/live", Socket, {
+  ...,
+  dom: {
+    onBeforeElUpdated(from, to){
+      if(from.__x){ window.Alpine.clone(from.__x, to) }
+    }
+  },
+})
+```
+
+to your `app.js`.
 
 ## Component Catalogue
 
