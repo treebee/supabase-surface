@@ -56,7 +56,8 @@ defmodule SupabaseSurface.MixProject do
       {:surface, "~> 0.4.0"},
       {:supabase, "~> 0.1.0"},
       {:heroicons, "~> 0.2.2"},
-      {:joken, "~> 2.0"}
+      {:joken, "~> 2.0"},
+      {:ex_doc, "~> 0.24", only: :dev, runtime: false}
     ]
   end
 
