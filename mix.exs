@@ -16,7 +16,8 @@ defmodule SupabaseSurface.MixProject do
         description: "Components for Supabase.io",
         licenses: "Apache-2.0",
         links: %{github: "https://github.com/treebee/supabase_surface"},
-        files: ~w(lib .formatter.exs mix.exs README.md assets/js priv assets/package.json)
+        files:
+          ~w(lib .formatter.exs mix.exs README.md assets/js assets/css priv assets/package.json LICENSE)
       ]
     ]
   end
@@ -52,7 +53,7 @@ defmodule SupabaseSurface.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:surface_catalogue, "~> 0.0.8", only: [:dev, :test]},
-      {:surface, "~> 0.4.0", override: true},
+      {:surface, "~> 0.4.0"},
       {:supabase, "~> 0.1.0"},
       {:heroicons, "~> 0.2.2"},
       {:joken, "~> 2.0"}
