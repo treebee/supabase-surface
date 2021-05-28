@@ -31,9 +31,7 @@ defmodule SupabaseSurface.Components.Divider do
 
     ~H"""
     <div class={{ @class, classes }} role="seperator">
-      <span :if={{ has_content }} class="sbui-divider__content">
-        <slot />
-      </span>
+      <span :if={{ has_content }} class="sbui-divider__content"><slot /></span>
     </div>
     """
   end
