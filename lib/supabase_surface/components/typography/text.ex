@@ -1,6 +1,8 @@
 defmodule SupabaseSurface.Components.Typography.Text do
   use Surface.Component
 
+  import Surface.Components.Utils
+
   @doc "The type (color) of the text"
   prop type, :atom, values: [:default, :success, :danger, :secondary, :warning]
 
@@ -22,43 +24,46 @@ defmodule SupabaseSurface.Components.Typography.Text do
   @doc "Which html tag to use for enclosing the tag"
   prop html_type, :string, values: ["span", "kbd", "code", "mark", "strong"], default: "span"
 
+  @doc "Additional options passed to the element"
+  prop opts, :keyword, default: []
+
   @doc "The content"
   slot default, required: true
 
   @impl true
   def render(assigns) do
     classes = build_classes(assigns)
-
-    render_text(classes, assigns)
+    attrs = opts_to_attrs(assigns.opts)
+    render_text(classes, assigns, attrs)
   end
 
-  def render_text(classes, %{html_type: "span"} = assigns) do
+  def render_text(classes, %{html_type: "span"} = assigns, attrs) do
     ~H"""
-    <span class={{ classes, @class }}><slot /></span>
+    <span class={{ classes, @class }} :attrs={{ attrs }}><slot /></span>
     """
   end
 
-  def render_text(classes, %{html_type: "kbd"} = assigns) do
+  def render_text(classes, %{html_type: "kbd"} = assigns, attrs) do
     ~H"""
-    <kbd class={{ classes, @class }}><slot /></kbd>
+    <kbd class={{ classes, @class }} :attrs={{ attrs }}><slot /></kbd>
     """
   end
 
-  def render_text(classes, %{html_type: "code"} = assigns) do
+  def render_text(classes, %{html_type: "code"} = assigns, attrs) do
     ~H"""
-    <code class={{ classes, @class }}><slot /></code>
+    <code class={{ classes, @class }} :attrs={{ attrs }}><slot /></code>
     """
   end
 
-  def render_text(classes, %{html_type: "mark"} = assigns) do
+  def render_text(classes, %{html_type: "mark"} = assigns, attrs) do
     ~H"""
-    <mark class={{ classes, @class }}><slot /></mark>
+    <mark class={{ classes, @class }} :attrs={{ attrs }}><slot /></mark>
     """
   end
 
-  def render_text(classes, %{html_type: "strong"} = assigns) do
+  def render_text(classes, %{html_type: "strong"} = assigns, attrs) do
     ~H"""
-    <strong class={{ classes, @class }}><slot /></strong>
+    <strong class={{ classes, @class }} :attrs={{ attrs }}><slot /></strong>
     """
   end
 
