@@ -98,17 +98,17 @@ defmodule SupabaseSurface.Components.Auth do
           <Divider :if={{ uses_social_login(@providers) }} class="mb-4">or continue with</Divider>
 
           <!-- login via magic link -->
-          <div x-show="view === 'magic'">
+          <div x-show="view === 'magic'" x-cloak>
           {{ render_magic(assigns) }}
           </div>
 
           <!-- login via password -->
-          <div x-show="view === 'password' || view === 'register'">
+          <div x-show="view === 'password' || view === 'register'" x-cloak>
           {{ render_password(assigns) }}
           </div>
 
           <!-- reset password -->
-          <div x-show="view === 'reset'">
+          <div x-show="view === 'reset'" x-cloak>
           {{ render_reset(assigns) }}
           </div>
 
@@ -234,7 +234,7 @@ defmodule SupabaseSurface.Components.Auth do
         </div>
       </Field>
       <HiddenInput name="login_type" opts={{ "x-bind:value": "view" }} />
-      <div x-show="view === 'password'" class="sbui-space-col sbui-space-y-6">
+      <div x-show="view === 'password'" class="sbui-space-col sbui-space-y-6" x-cloak>
         <div class="sbui-space-row sbui-space-x-2 flex justify-end">
           <Link opts={{ "@click": "view = 'reset'" }}>Forgot your password?</Link>
         </div>
@@ -244,13 +244,13 @@ defmodule SupabaseSurface.Components.Auth do
           Sign in</Submit>
         </span>
       </div>
-      <div x-show="view === 'register'" class="sbui-space-col sbui-space-y-6">
+      <div x-show="view === 'register'" class="sbui-space-col sbui-space-y-6" x-cloak>
         <Submit class="bg-brand-800 w-full rounded-md font-semibold text-white py-1.5 my-2 flex items-center gap-2 justify-center">
           {{ Heroicons.Outline.lock_closed(class: "w-6 h-6") }}
           Sign up
         </Submit>
       </div>
-      <div x-show="view === 'password'" class="sbui-space-col sbui-space-y-2 text-center">
+      <div x-show="view === 'password'" class="sbui-space-col sbui-space-y-2 text-center" x-cloak>
         <Link opts={{ "@click": "view = 'magic'" }} class="text-center">
           Sign in with magic link
         </Link>
@@ -258,7 +258,7 @@ defmodule SupabaseSurface.Components.Auth do
           Don't have an account? Sign up
         </Link>
       </div>
-      <div x-show="view === 'register'" class="sbui-space-col sbui-space-y-2 text-center">
+      <div x-show="view === 'register'" class="sbui-space-col sbui-space-y-2 text-center" x-cloak>
         <Link opts={{ "@click": "view = 'password'" }} class="text-center">
           Do you have an account? Sign in
         </Link>
