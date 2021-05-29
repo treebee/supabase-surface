@@ -14,7 +14,7 @@ const SupabaseAuth = {
     );
     return authParams;
   },
-  setSession(payload) {
+  setSession(payload, redirect = true) {
     fetch(this.sessionUrl(), {
       method: "POST",
       body: JSON.stringify(payload),
@@ -22,14 +22,17 @@ const SupabaseAuth = {
         "Content-Type": "application/json",
       },
     }).then((response) => {
-      Browser.redirect(this.redirectUrl());
+      if (redirect) Browser.redirect(this.redirectUrl());
     });
   },
   mounted() {
     if (this.el.dataset.magicLink && window.location.hash) {
       const payload = this.parseHash(window.location.hash);
       if (payload.access_token && payload.refresh_token) {
-        this.setSession(payload);
+        this.setSession(payload, false);
+      }
+      if (payload.type === "recovery") {
+        this.pushEventTo(this.el, "recovery", payload);
       }
     }
     this.handleEvent("sign-in", (payload) => this.setSession(payload));

@@ -75,6 +75,7 @@ defmodule SupabaseSurface.Components.Auth do
   data(user, :map, default: @default_user)
   data(msg, :string, default: nil)
   data(type, :atom, values: [:default, :success, :danger], default: :default)
+  data view, :string, default: "login"
 
   # TODO: this really needs a bunch of tests
   @impl true
@@ -87,30 +88,34 @@ defmodule SupabaseSurface.Components.Auth do
       data-magic-link="{{ @magic_link }}"
       class={{ "dark flex flex-col gap-4 text-white px-8 py-12 bg-gray-700 border border-gray-600 border-opacity-60 rounded-md sbui-typography-container", @class }}
       >
-      <!-- social login -->
-      {{ render_social(assigns) }}
-      <div :if={{ @password_login or @magic_link }}
-        x-data="{
-          view: {{ @magic_link }} ? 'magic' : 'password'
-        }"
-      >
-        <Divider :if={{ uses_social_login(@providers) }} class="mb-4">or continue with</Divider>
+      <div :if={{ @view == "login" }}>
+        {{ render_social(assigns) }}
+        <div :if={{ @password_login or @magic_link }}
+          x-data="{
+            view: {{ @magic_link }} ? 'magic' : 'password'
+          }"
+        >
+          <Divider :if={{ uses_social_login(@providers) }} class="mb-4">or continue with</Divider>
 
-        <!-- login via magic link -->
-        <div x-show="view === 'magic'">
-        {{ render_magic(assigns) }}
+          <!-- login via magic link -->
+          <div x-show="view === 'magic'">
+          {{ render_magic(assigns) }}
+          </div>
+
+          <!-- login via password -->
+          <div x-show="view === 'password' || view === 'register'">
+          {{ render_password(assigns) }}
+          </div>
+
+          <!-- reset password -->
+          <div x-show="view === 'reset'">
+          {{ render_reset(assigns) }}
+          </div>
+
         </div>
-
-        <!-- login via password -->
-        <div x-show="view === 'password' || view === 'register'">
-        {{ render_password(assigns) }}
-        </div>
-
-        <!-- reset password -->
-        <div x-show="view === 'reset'">
-        {{ render_reset(assigns) }}
-        </div>
-
+      </div>
+      <div :if={{ @view == "recovery" }}>
+        {{ render_update_password(assigns) }}
       </div>
       <Text :if={{ @msg }} type={{ @type }} class="py-2 px-1">{{ @msg }}</Text>
     </div>
@@ -159,6 +164,26 @@ defmodule SupabaseSurface.Components.Auth do
     <Link opts={{ "@click": "view = 'password'" }} class="my-8">
       Go back to sign in
     </Link>
+    """
+  end
+
+  defp render_update_password(assigns) do
+    ~H"""
+    <Form
+      for={{ :update_password }} change="change" submit="submit">
+      <Field name="password" class="font-semibold text-md mb-4">
+        <Label>Password</Label>
+        <div class="control flex items-center mt-4">
+          <PasswordInput
+            value="{{ @user["password"] }}" opts={{ placeholder: "Password" }} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
+          <div class="absolute">{{ Heroicons.Outline.key(class: "w-6 h-6 ml-2 text-gray-400") }}</div>
+        </div>
+      </Field>
+      <Submit class="bg-brand-800 w-full rounded-md font-semibold text-white py-1.5 my-2 flex items-center gap-2 justify-center">
+        {{ Heroicons.Outline.inbox(class: "w-6 h-6")}}
+        Update password
+      </Submit>
+    </Form>
     """
   end
 
@@ -243,27 +268,46 @@ defmodule SupabaseSurface.Components.Auth do
   end
 
   @impl true
-  def handle_event(
-        "change",
-        params,
-        socket
-      ) do
+  def handle_event("change", params, socket) do
     user_params = Map.get(params, "magic_user", Map.get(params, "password_user"))
     {:noreply, assign(socket, :user, user_params)}
   end
 
   @impl true
+  def handle_event("submit", %{"update_password" => new_password}, socket) do
+    at = socket.assigns.access_token
+
+    socket =
+      case Supabase.auth() |> GoTrue.update_user(at, new_password) do
+        {:ok, _userdata} ->
+          redirect(socket, to: socket.assigns.redirect_url)
+
+        {:error, _} ->
+          assign(socket, type: :danger, msg: "Something went wrong")
+      end
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("submit", %{"reset_user" => %{"email" => email}}, socket) do
+    socket =
+      case Supabase.auth() |> GoTrue.recover(email) do
+        :ok -> assign(socket, type: :default, msg: "Check your email for the password reset link")
+        {:error, _} -> assign(socket, type: :danger, msg: "Something went wrong")
+      end
+
+    {:noreply, socket}
+  end
+
+  @impl true
   def handle_event(
         "submit",
-        %{
-          "login_type" => "password",
-          "password_user" => credentials
-        },
+        %{"login_type" => "password", "password_user" => credentials},
         socket
       ) do
     socket =
-      case Supabase.auth()
-           |> GoTrue.sign_in(credentials) do
+      case Supabase.auth() |> GoTrue.sign_in(credentials) do
         {:error, %{message: message}} ->
           assign(socket, msg: message, type: :danger)
 
@@ -295,7 +339,7 @@ defmodule SupabaseSurface.Components.Auth do
         {:ok, _} ->
           assign(socket,
             msg: "A confirmation email was sent",
-            type: :success,
+            type: :default,
             user: @default_user
           )
       end
@@ -323,6 +367,16 @@ defmodule SupabaseSurface.Components.Auth do
   def handle_event("authorize", %{"provider" => provider}, socket) do
     url = provider_url(provider, redirect_to: Map.get(socket.assigns, :provider_redirect_url))
     {:noreply, redirect(socket, external: url)}
+  end
+
+  @impl true
+  def handle_event(
+        "recovery",
+        %{"access_token" => access_token, "refresh_token" => refresh_token},
+        socket
+      ) do
+    {:noreply,
+     assign(socket, view: "recovery", access_token: access_token, refresh_token: refresh_token)}
   end
 
   defp provider_url(provider, options) do
