@@ -22,7 +22,7 @@ does a refresh if necessary.
 ```elixir
 def deps do
   [
-    {:supabase_surface, "~> 0.1.3"}
+    {:supabase_surface, "~> 0.1.4"}
   ]
 end
 ```

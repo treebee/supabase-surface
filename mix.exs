@@ -4,7 +4,7 @@ defmodule SupabaseSurface.MixProject do
   def project do
     [
       app: :supabase_surface,
-      version: "0.1.3",
+      version: "0.1.4",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers() ++ [:surface],
