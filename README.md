@@ -22,7 +22,7 @@ does a refresh if necessary.
 ```elixir
 def deps do
   [
-    {:supabase_surface, github: "treebee/supabase-surface"}
+    {:supabase_surface, "~> 0.1.3"}
   ]
 end
 ```
