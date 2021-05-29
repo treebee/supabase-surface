@@ -1,5 +1,7 @@
 # Supabase UI for Surface (WIP)
 
+[![Hex.pm](https://img.shields.io/hexpm/v/supabase_surface.svg)](https://hex.pm/packages/supabase_surface)
+
 A component library for [Supabase](supabase.io) and [Surface](https://surface-ui.org/).
 
 [Here](https://github.com/treebee/supabase_surface_demo) you can find a demo application

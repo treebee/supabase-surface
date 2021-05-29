@@ -1,10 +1,11 @@
 defmodule SupabaseSurface.MixProject do
   use Mix.Project
 
+  @version "0.1.5"
   def project do
     [
       app: :supabase_surface,
-      version: "0.1.4",
+      version: @version,
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers() ++ [:surface],
@@ -18,7 +19,8 @@ defmodule SupabaseSurface.MixProject do
         links: %{github: "https://github.com/treebee/supabase_surface"},
         files:
           ~w(lib .formatter.exs mix.exs README.md assets/js assets/css priv/static assets/package.json LICENSE package.json)
-      ]
+      ],
+      docs: docs()
     ]
   end
 
@@ -28,6 +30,39 @@ defmodule SupabaseSurface.MixProject do
   def application do
     [
       extra_applications: [:logger, :runtime_tools]
+    ]
+  end
+
+  defp docs do
+    [
+      source_ref: "v#{@version}",
+      main: "readme",
+      extras: [
+        "README.md",
+        "guides/introduction/installation.md",
+        "guides/realtime.md",
+        "guides/images.md"
+      ],
+      extra_section: "GUIDES",
+      groups_for_modules: [
+        Components: [
+          SupabaseSurface.Components.Auth,
+          SupabaseSurface.Components.Badge,
+          SupabaseSurface.Components.Button,
+          SupabaseSurface.Components.Divider,
+          SupabaseSurface.Components.Dropdown,
+          SupabaseSurface.Components.Typography.Text,
+          SupabaseSurface.Components.Typography.Title,
+          SupabaseSurface.Components.Typography.Link
+        ],
+        Plugs: [
+          SupabaseSurface.Plugs.Session
+        ]
+      ],
+      groups_for_extras: [
+        Introduction: ~r/guides\/introduction\/.?/,
+        Guides: ~r/guides\/[^\/]+\.md/
+      ]
     ]
   end
 

@@ -1,4 +1,4 @@
-defmodule SupabaseSurfaceWeb.Plugs.Session do
+defmodule SupabaseSurface.Plugs.Session do
   @moduledoc """
   A plug to handle access and refresh tokens.
 
