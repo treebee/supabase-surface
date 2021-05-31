@@ -33,7 +33,7 @@ defmodule SupabaseSurface.Components.Dropdown.Menu do
           <Typography.Text>Settings</Typography.Text>
         </DropdownItem>
         <template slot="items">
-          <Divider light={{ true }} />
+          <Divider light />
         </template>
         <DropdownItem to="#" method={{ :post }} class="hover:bg-gray-300">
           <DropdownItemIcon>{{ Heroicons.Outline.logout(class: "w-4 h-4") }}</DropdownItemIcon>
@@ -101,7 +101,7 @@ defmodule SupabaseSurface.Components.Dropdown.Placement do
             <Typography.Text>Settings</Typography.Text>
           </DropdownItem>
           <template slot="items">
-            <Divider light={{ true }} />
+            <Divider light />
           </template>
           <DropdownItem method={{ :post }} class="hover:bg-gray-300">
             <DropdownItemIcon>{{ Heroicons.Outline.logout(class: "w-4 h-4") }}</DropdownItemIcon>

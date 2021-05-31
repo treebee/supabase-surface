@@ -20,7 +20,7 @@ defmodule SupabaseSurface.Components.BadgeTest do
     html =
       render_surface do
         ~H"""
-        <Badge dot={{ true }} color="blue">my badge</Badge>
+        <Badge dot color="blue">my badge</Badge>
         """
       end
 

@@ -41,8 +41,8 @@ defmodule SupabaseSurface.Components.Badge.Dot do
     def render(assigns) do
       ~H"""
       <div class="dark p-8 bg-dark-700">
-        <Badge dot={{ true }} color="blue">blue</Badge>
-        <Badge dot={{ true }} size="large" color="pink">pink</Badge>
+        <Badge dot color="blue">blue</Badge>
+        <Badge dot size="large" color="pink">pink</Badge>
       </div>
       """
     end
