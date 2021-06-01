@@ -8,10 +8,15 @@ defmodule SupabaseSurface.Catalogue do
   def config() do
     [
       head_css: """
-      <style>#{@css}</style>
       <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+      <style>#{@css}</style>
       """,
-      head_js: "<script>#{@js}</script>"
+      head_js: "<script>#{@js}</script>",
+      example: [
+        body: [
+          class: "p-2 h-full bg-dark-700 dark"
+        ]
+      ]
     ]
   end
 end

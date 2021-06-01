@@ -10,8 +10,8 @@ defmodule SupabaseSurface.Components.Divider.Content do
 
   def render(assigns) do
     ~H"""
-    <div class="p-4 bg-dark-800">
-      <Divider light> some text </Divider>
+    <div class="p-4">
+      <Divider> some text </Divider>
     </div>
     """
   end

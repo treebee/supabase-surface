@@ -86,7 +86,7 @@ defmodule SupabaseSurface.Components.Auth do
       data-redirect-url="{{ @redirect_url }}"
       data-session-url="{{ @session_url }}"
       data-magic-link="{{ @magic_link }}"
-      class={{ "dark flex flex-col gap-4 text-white px-8 py-12 bg-gray-700 border border-gray-600 border-opacity-60 rounded-md sbui-typography-container", @class }}
+      class={{ "flex flex-col gap-4 text-white px-8 py-12 bg-gray-700 border border-gray-600 border-opacity-60 rounded-md sbui-typography-container", @class }}
       >
       <div :if={{ @view == "login" }}>
         {{ render_social(assigns) }}

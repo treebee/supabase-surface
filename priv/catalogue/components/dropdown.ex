@@ -71,9 +71,6 @@ defmodule SupabaseSurface.Components.Dropdown.Placement do
         <div class="p-8">
           {{ render_dropdown(assigns) }}
         </div>
-        <div class="dark p-8 bg-dark-800">
-          {{ render_dropdown(assigns) }}
-        </div>
       </div>
       """
     end
