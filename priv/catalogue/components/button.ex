@@ -57,3 +57,40 @@ defmodule SupabaseSurface.Components.Button.Size do
     end
 
 end
+
+defmodule SupabaseSurface.Components.Button.States do
+  @moduledoc """
+  ## States
+
+  """
+
+  use Surface.Catalogue.Example,
+    subject: SupabaseSurface.Components.Button,
+    catalogue: SupabaseSurface.Catalogue,
+    height: "200px"
+
+    alias SupabaseSurface.Components.Button
+
+    def render(assigns) do
+      ~H"""
+      <Button loading type="outline" class="m-2">loading</Button>
+      <Button loading size="xlarge" class="m-2">loading</Button>
+      <Button disabled class="m-2">disabled</Button>
+      """
+    end
+
+end
+
+defmodule SupabaseSurface.Catalogue.Button.Playground do
+  use Surface.Catalogue.Playground,
+    subject: SupabaseSurface.Components.Button,
+    catalogue: SupabaseSurface.Catalogue,
+    height: "200px",
+    container: {:div, class: "dark bg-dark-800"}
+
+    def render(assigns) do
+      ~H"""
+      <Button>My Button</Button>
+      """
+    end
+end

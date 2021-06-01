@@ -49,6 +49,9 @@ defmodule SupabaseSurface.Components.Button do
   @doc "If the button should be disabled"
   prop disabled, :boolean, default: false
 
+  @doc "Apply loading state"
+  prop loading, :boolean, default: false
+
   @doc "The content of the generated `<button>` element"
   slot default
 
@@ -81,11 +84,11 @@ defmodule SupabaseSurface.Components.Button do
     <button
       id={{ @id }}
       type={{ @html_type }}
-      class={{ @class, build_classes(assigns) }}
+      class={{ @class, build_classes(assigns), "flex gap-2": @loading }}
       aria_label={{ @aria_label }}
       :attrs={{ attrs }}
-      disabled={{ @disabled }}
-    ><slot /></button>
+      disabled={{ @loading or @disabled }}
+    ><div :if={{ @loading }} class="sbui-icon-container sbui-btn--anim--spin">{{ Feathericons.loader(class: "w-4 h-4") }}</div><slot /></button>
     """
   end
 

@@ -41,4 +41,18 @@ defmodule SupabaseSurface.Components.ButtonTest do
            <button data-method=\"get\" data-to=\"/settings\" type=\"button\" class=\"sbui-btn sbui-btn-container sbui-btn-link sbui-btn--tiny\">Settings</button>
            """
   end
+
+  test "loading shows icon and is disabled" do
+    html =
+      render_surface do
+        ~H"""
+        <Button loading>Save</Button>
+        """
+      end
+
+    assert html =~ "disabled"
+    assert html =~ "disabled><div class=\"sbui-icon-container sbui-btn--anim--spin\"><svg xmlns="
+    assert html =~ "</svg></div>Save</button>"
+
+  end
 end
