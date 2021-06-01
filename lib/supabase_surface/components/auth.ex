@@ -44,6 +44,7 @@ defmodule SupabaseSurface.Components.Auth do
   alias SupabaseSurface.Components.Divider
   alias SupabaseSurface.Components.Typography.{Text, Link}
   alias SupabaseSurface.Components.Icons.SocialIcon
+  alias SupabaseSurface.Components.Space
 
   @default_user %{"email" => "", "password" => ""}
 
@@ -145,21 +146,21 @@ defmodule SupabaseSurface.Components.Auth do
     <Form
       :if={{ @password_login }}
       for={{ :reset_user }} change="change" submit="submit">
-       <div class="sbui-space-col sbui-space-y-6">
-         <div class="sbui-space-col sbui-space-y-3">
-      <Field name="email" class="font-semibold text-md mb-4">
-        <Label>Email address</Label>
-        <div class="control flex items-center mt-4">
-          <TextInput
-            value="{{ @user["email"] }}" opts={{ placeholder: "Your email address" }} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
-          <div class="absolute">{{ Heroicons.Outline.mail(class: "w-6 h-6 ml-2 text-gray-400") }}</div>
-        </div>
-      </Field>
-      <Submit class="bg-brand-800 w-full rounded-md font-semibold text-white py-1.5 mb-2 flex items-center gap-2 justify-center">
-        {{ Heroicons.Outline.inbox(class: "w-6 h-6") }}
-      Send reset password instructions</Submit>
-      </div>
-      </div>
+      <Space direction="vertical" size=6>
+        <Space direction="vertical" size=3>
+          <Field name="email" class="font-semibold text-md mb-4">
+            <Label>Email address</Label>
+            <div class="control flex items-center mt-4">
+              <TextInput
+                value="{{ @user["email"] }}" opts={{ placeholder: "Your email address" }} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
+              <div class="absolute">{{ Heroicons.Outline.mail(class: "w-6 h-6 ml-2 text-gray-400") }}</div>
+            </div>
+          </Field>
+          <Submit class="bg-brand-800 w-full rounded-md font-semibold text-white py-1.5 mb-2 flex items-center gap-2 justify-center">
+            {{ Heroicons.Outline.inbox(class: "w-6 h-6") }}
+          Send reset password instructions</Submit>
+        </Space>
+      </Space>
     </Form>
     <Link opts={{ "@click": "view = 'password'" }} class="my-8">
       Go back to sign in
@@ -217,52 +218,56 @@ defmodule SupabaseSurface.Components.Auth do
       :if={{ @password_login }}
       for={{ :password_user }} as={{ :user }} change="change" submit="submit"
     >
-      <Field name="email" class="font-semibold text-md mb-4">
-        <Label>Email address</Label>
-        <div class="control flex items-center mt-4">
-          <TextInput
-            value="{{ @user["email"] }}" opts={{ placeholder: "Your email address" }} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
-          <div class="absolute">{{ Heroicons.Outline.mail(class: "w-6 h-6 ml-2 text-gray-400") }}</div>
-        </div>
-      </Field>
-      <Field name="password" class="font-semibold text-md mb-4">
-        <Label>Password</Label>
-        <div class="control flex items-center mt-4">
-          <PasswordInput
-            value="{{ @user["password"] }}" opts={{ placeholder: "Password" }} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
-          <div class="absolute">{{ Heroicons.Outline.key(class: "w-6 h-6 ml-2 text-gray-400") }}</div>
-        </div>
-      </Field>
-      <HiddenInput name="login_type" opts={{ "x-bind:value": "view" }} />
-      <div x-show="view === 'password'" class="sbui-space-col sbui-space-y-6" x-cloak>
-        <div class="sbui-space-row sbui-space-x-2 flex justify-end">
-          <Link opts={{ "@click": "view = 'reset'" }}>Forgot your password?</Link>
-        </div>
-        <span class="sbui-btn-container sbui-btn--w-full">
-         <Submit class="bg-brand-800 w-full rounded-md font-semibold text-white py-1.5 my-2 flex items-center gap-2 justify-center">
-          {{ Heroicons.Outline.lock_closed(class: "w-6 h-6") }}
-          Sign in</Submit>
-        </span>
-      </div>
-      <div x-show="view === 'register'" class="sbui-space-col sbui-space-y-6" x-cloak>
-        <Submit class="bg-brand-800 w-full rounded-md font-semibold text-white py-1.5 my-2 flex items-center gap-2 justify-center">
-          {{ Heroicons.Outline.lock_closed(class: "w-6 h-6") }}
-          Sign up
-        </Submit>
-      </div>
-      <div x-show="view === 'password'" class="sbui-space-col sbui-space-y-2 text-center" x-cloak>
+      <Space size=6 direction="vertical">
+        <Space size=3 direction="vertical">
+          <Field name="email" class="font-semibold text-md mb-4">
+            <Label>Email address</Label>
+            <div class="control flex items-center mt-4">
+              <TextInput
+                value="{{ @user["email"] }}" opts={{ placeholder: "Your email address" }} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
+              <div class="absolute">{{ Heroicons.Outline.mail(class: "w-6 h-6 ml-2 text-gray-400") }}</div>
+            </div>
+          </Field>
+          <Field name="password" class="font-semibold text-md mb-4">
+            <Label>Password</Label>
+            <div class="control flex items-center mt-4">
+              <PasswordInput
+                value="{{ @user["password"] }}" opts={{ placeholder: "Password" }} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
+              <div class="absolute">{{ Heroicons.Outline.key(class: "w-6 h-6 ml-2 text-gray-400") }}</div>
+            </div>
+          </Field>
+        </Space>
+        <Space direction="vertical" size=6 opts={{ "x-show": "view === 'password'", "x-cloak": "" }}>
+          <HiddenInput name="login_type" opts={{ "x-bind:value": "view" }} />
+          <Space direction="vertical" size=2 class="justify-end">
+            <Link opts={{ "@click": "view = 'reset'" }}>Forgot your password?</Link>
+          </Space>
+          <span class="sbui-btn-container sbui-btn--w-full">
+          <Submit class="bg-brand-800 w-full rounded-md font-semibold text-white py-1.5 my-2 flex items-center gap-2 justify-center">
+            {{ Heroicons.Outline.lock_closed(class: "w-6 h-6") }}
+            Sign in</Submit>
+          </span>
+        </Space>
+        <Space direction="vertical" size=6 opts={{ "x-show": "view === 'register'", "x-cloak": "" }}>
+          <Submit class="bg-brand-800 w-full rounded-md font-semibold text-white py-1.5 my-2 flex items-center gap-2 justify-center">
+            {{ Heroicons.Outline.lock_closed(class: "w-6 h-6") }}
+            Sign up
+          </Submit>
+        </Space>
+      </Space>
+      <Space direction="vertical" size=2 opts={{ "x-show": "view === 'password'", "x-cloak": "" }} class="text-center">
         <Link opts={{ "@click": "view = 'magic'" }} class="text-center">
           Sign in with magic link
         </Link>
         <Link opts={{ "@click": "view = 'register'" }} class="text-center">
           Don't have an account? Sign up
         </Link>
-      </div>
-      <div x-show="view === 'register'" class="sbui-space-col sbui-space-y-2 text-center" x-cloak>
+      </Space>
+      <Space direction="vertical" size=2 opts={{ "x-show": "view === 'register'", "x-cloak": "" }} class="text-center">
         <Link opts={{ "@click": "view = 'password'" }} class="text-center">
           Do you have an account? Sign in
         </Link>
-      </div>
+      </Space>
     </Form>
     """
   end
