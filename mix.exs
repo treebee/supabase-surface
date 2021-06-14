@@ -83,7 +83,7 @@ defmodule SupabaseSurface.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: [:dev, :test]},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:surface_catalogue, "~> 0.0.8", only: [:dev, :test]},
+      {:surface_catalogue, "~> 0.0.9", only: [:dev, :test]},
       {:surface, "~> 0.4.0"},
       {:supabase, "~> 0.1.0"},
       {:heroicons, "~> 0.2.2"},
