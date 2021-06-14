@@ -1,5 +1,5 @@
 # copied and adapted from https://github.com/surface-ui/surface/blob/master/lib/surface/components/form/email_input.ex
-defmodule SupabaseSurface.Components.EmailInput do
+defmodule SupabaseSurface.Components.Form.EmailInput do
   @moduledoc """
   An input field that let the user enter one or multiple **e-mails**.
   Provides a wrapper for Phoenix.HTML.Form's `email_input/3` function.

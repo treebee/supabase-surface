@@ -1,5 +1,5 @@
 # copied and adapted from https://github.com/surface-ui/surface/blob/master/lib/surface/components/form/text_input.ex
-defmodule SupabaseSurface.Components.TextInput do
+defmodule SupabaseSurface.Components.Form.TextInput do
   @moduledoc """
   An input field that let the user enter a **single-line text**.
   Provides a wrapper for Phoenix.HTML.Form's `text_input/3` function.

@@ -1,4 +1,4 @@
-defmodule SupabaseSurface.Components.PasswordInput do
+defmodule SupabaseSurface.Components.Form.PasswordInput do
   @moduledoc """
   An input field that let the user enter a **password**.
   Provides a wrapper for Phoenix.HTML.Form's `password_input/3` function.
@@ -45,11 +45,11 @@ defmodule SupabaseSurface.Components.PasswordInput do
   end
 end
 
-defmodule SupabaseSurface.Components.PasswordInput.Example do
+defmodule SupabaseSurface.Components.Form.PasswordInput.Example do
   use Surface.Catalogue.Example,
-    subject: SupabaseSurface.Components.PasswordInput,
+    subject: SupabaseSurface.Components.Form.PasswordInput,
     catalogue: SupabaseSurface.Catalogue,
-    height: "200px",
+    height: "100px",
     direction: "vertical"
 
   def render(assigns) do
