@@ -15,8 +15,8 @@ defmodule SupabaseSurface.Components.DropdownItemIcon do
   slot default, required: true
 
   def render(assigns) do
-    ~H"""
-    <slot />
+    ~F"""
+    <#slot />
     """
   end
 end
@@ -46,26 +46,26 @@ defmodule SupabaseSurface.Components.DropdownItem do
 
   @impl true
   def render(assigns) do
-    ~H"""
-    <div tabindex="-1" class={{ "flex align-center sbui-dropdown-item", @class }} role="menuitem">
-      <slot name="icon" />
+    ~F"""
+    <div tabindex="-1" class={"flex align-center sbui-dropdown-item", @class} role="menuitem">
+      <#slot name="icon" />
       <span class="sbui-dropdown-item__content">
-        {{ render_content(assigns) }}
+        {render_content(assigns)}
       </span>
     </div>
     """
   end
 
   def render_content(%{to: nil} = assigns) do
-    ~H"""
-      <slot />
+    ~F"""
+      <#slot />
     """
   end
 
   def render_content(%{to: to, method: :get} = assigns) do
-    ~H"""
-    <LivePatch to={{ to }} class="flex items-center">
-      <slot />
+    ~F"""
+    <LivePatch to={to} class="flex items-center">
+      <#slot />
     </LivePatch>
     """
   end
@@ -74,9 +74,9 @@ defmodule SupabaseSurface.Components.DropdownItem do
     opts = apply_method(to, method, assigns.opts)
     attrs = opts_to_attrs(opts)
 
-    ~H"""
-    <button :attrs={{ attrs }} class="flex items-center">
-      <slot />
+    ~F"""
+    <button :attrs={attrs} class="flex items-center">
+      <#slot />
     </button>
     """
   end
@@ -157,26 +157,26 @@ defmodule SupabaseSurface.Components.Dropdown do
 
   @impl true
   def render(assigns) do
-    ~H"""
+    ~F"""
       <div
         x-data="{ open: false }"
         class="relative inline-block">
-          <slot
+          <#slot
             @click="open = !open"
             @click.away="open = false"
           />
         <div
           x-cloak
           x-show="open"
-          x-transition:enter={{ Keyword.get(@transition, :enter, nil)}}
-          x-transition:enter-start={{ Keyword.get(@transition, :enter_start, nil)}}
-          x-transition:enter-end={{ Keyword.get(@transition, :enter_end, nil)}}
-          x-transition:leave-start={{ Keyword.get(@transition, :leave_start, nil)}}
-          x-transition:leave-end={{ Keyword.get(@transition, :leave_end, nil)}}
-          class={{ "absolute z-10 sbui-dropdown__content", position_class(@side, @align) }}
+          x-transition:enter={Keyword.get(@transition, :enter, nil)}
+          x-transition:enter-start={Keyword.get(@transition, :enter_start, nil)}
+          x-transition:enter-end={Keyword.get(@transition, :enter_end, nil)}
+          x-transition:leave-start={Keyword.get(@transition, :leave_start, nil)}
+          x-transition:leave-end={Keyword.get(@transition, :leave_end, nil)}
+          class={"absolute z-10 sbui-dropdown__content", position_class(@side, @align)}
           role="menu" aria-orientation="vertical" data-orientation="vertical"
         >
-          <slot :for.index={{ @items }} name="items" index={{ index }} />
+          <#slot :for.index={@items} name="items" index={index} />
        </div>
       </div>
     """

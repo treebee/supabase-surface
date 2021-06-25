@@ -6,7 +6,7 @@ defmodule SupabaseSurface.Components.ButtonTest do
   test "creates a tiny, primary <button> with type button" do
     html =
       render_surface do
-        ~H"""
+        ~F"""
         <Button>my button</Button>
         """
       end
@@ -19,8 +19,8 @@ defmodule SupabaseSurface.Components.ButtonTest do
   test "renders disabled button" do
     html =
       render_surface do
-        ~H"""
-        <Button disabled={{ true }}>disabled</Button>
+        ~F"""
+        <Button disabled={true}>disabled</Button>
         """
       end
 
@@ -32,8 +32,8 @@ defmodule SupabaseSurface.Components.ButtonTest do
   test "includes a link" do
     html =
       render_surface do
-        ~H"""
-        <Button type="link" to="/settings" method={{ :get }}>Settings</Button>
+        ~F"""
+        <Button type="link" to="/settings" method={:get}>Settings</Button>
         """
       end
 
@@ -45,7 +45,7 @@ defmodule SupabaseSurface.Components.ButtonTest do
   test "loading shows icon and is disabled" do
     html =
       render_surface do
-        ~H"""
+        ~F"""
         <Button loading>Save</Button>
         """
       end

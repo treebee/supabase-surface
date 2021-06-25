@@ -81,59 +81,59 @@ defmodule SupabaseSurface.Components.Auth do
   # TODO: this really needs a bunch of tests
   @impl true
   def render(assigns) do
-    ~H"""
+    ~F"""
     <div
       :hook="SupabaseAuth"
-      data-redirect-url="{{ @redirect_url }}"
-      data-session-url="{{ @session_url }}"
-      data-magic-link="{{ @magic_link }}"
-      class={{ "flex flex-col gap-4 text-white px-8 py-12 bg-gray-700 border border-gray-600 border-opacity-60 rounded-md sbui-typography-container", @class }}
+      data-redirect-url={"#{@redirect_url}"}
+      data-session-url={"#{@session_url}"}
+      data-magic-link={"#{@magic_link}"}
+      class={"flex flex-col gap-4 text-white px-8 py-12 bg-gray-700 border border-gray-600 border-opacity-60 rounded-md sbui-typography-container", @class}
       >
-      <div :if={{ @view == "login" }}>
-        {{ render_social(assigns) }}
-        <div :if={{ @password_login or @magic_link }}
-          x-data="{
-            view: {{ @magic_link }} ? 'magic' : 'password'
-          }"
+      <div :if={@view == "login"}>
+        {render_social(assigns)}
+        <div :if={@password_login or @magic_link}
+          x-data={"{
+            view: #{@magic_link} ? 'magic' : 'password'
+          }"}
         >
-          <Divider :if={{ uses_social_login(@providers) }} class="mb-4">or continue with</Divider>
+          <Divider :if={uses_social_login(@providers)} class="mb-4">or continue with</Divider>
 
           <!-- login via magic link -->
           <div x-show="view === 'magic'" x-cloak>
-          {{ render_magic(assigns) }}
+          {render_magic(assigns)}
           </div>
 
           <!-- login via password -->
           <div x-show="view === 'password' || view === 'register'" x-cloak>
-          {{ render_password(assigns) }}
+          {render_password(assigns)}
           </div>
 
           <!-- reset password -->
           <div x-show="view === 'reset'" x-cloak>
-          {{ render_reset(assigns) }}
+          {render_reset(assigns)}
           </div>
 
         </div>
       </div>
-      <div :if={{ @view == "recovery" }}>
-        {{ render_update_password(assigns) }}
+      <div :if={@view == "recovery"}>
+        {render_update_password(assigns)}
       </div>
-      <Text :if={{ @msg }} type={{ @type }} class="py-2 px-1">{{ @msg }}</Text>
+      <Text :if={@msg} type={@type} class="py-2 px-1">{@msg}</Text>
     </div>
     """
   end
 
   defp render_social(assigns) do
-    ~H"""
-    <div :if={{ @providers }}>
-      <Text type={{ :secondary }} class="sbui-auth-label">Sign in with</Text>
+    ~F"""
+    <div :if={@providers}>
+      <Text type={:secondary} class="sbui-auth-label">Sign in with</Text>
       <div class="pt-2">
-        <span :for={{ provider <- @providers }}>
+        <span :for={provider <- @providers}>
           <button
             :on-click="authorize"
-            phx-value-provider={{ provider }}
+            phx-value-provider={provider}
             class="my-2 py-2 w-full bg-gray-600 font-semibold text-sm flex items-center justify-center rounded-md">
-            <SocialIcon class="mr-2 w-4 h-4" provider={{ provider }} />Sign up with {{ provider }}
+            <SocialIcon class="mr-2 w-4 h-4" provider={provider} />Sign up with {provider}
           </button>
         </span>
       </div>
@@ -142,46 +142,46 @@ defmodule SupabaseSurface.Components.Auth do
   end
 
   defp render_reset(assigns) do
-    ~H"""
+    ~F"""
     <Form
-      :if={{ @password_login }}
-      for={{ :reset_user }} change="change" submit="submit">
-      <Space direction="vertical" size=6>
-        <Space direction="vertical" size=3>
+      :if={@password_login}
+      for={:reset_user} change="change" submit="submit">
+      <Space direction="vertical" size={6}>
+        <Space direction="vertical" size={3}>
           <Field name="email" class="font-semibold text-md mb-4">
             <Label>Email address</Label>
             <div class="control flex items-center mt-4">
               <TextInput
-                value="{{ @user["email"] }}" opts={{ placeholder: "Your email address" }} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
-              <div class="absolute">{{ Heroicons.Outline.mail(class: "w-6 h-6 ml-2 text-gray-400") }}</div>
+                value={"#{@user["email"]}"} opts={placeholder: "Your email address"} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
+              <div class="absolute">{Heroicons.Outline.mail(class: "w-6 h-6 ml-2 text-gray-400")}</div>
             </div>
           </Field>
           <Submit class="bg-brand-800 w-full rounded-md font-semibold text-white py-1.5 mb-2 flex items-center gap-2 justify-center">
-            {{ Heroicons.Outline.inbox(class: "w-6 h-6") }}
+            {Heroicons.Outline.inbox(class: "w-6 h-6")}
           Send reset password instructions</Submit>
         </Space>
       </Space>
     </Form>
-    <Link opts={{ "@click": "view = 'password'" }} class="my-8">
+    <Link opts={"@click": "view = 'password'"} class="my-8">
       Go back to sign in
     </Link>
     """
   end
 
   defp render_update_password(assigns) do
-    ~H"""
+    ~F"""
     <Form
-      for={{ :update_password }} change="change" submit="submit">
+      for={:update_password} change="change" submit="submit">
       <Field name="password" class="font-semibold text-md mb-4">
         <Label>Password</Label>
         <div class="control flex items-center mt-4">
           <PasswordInput
-            value="{{ @user["password"] }}" opts={{ placeholder: "Password" }} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
-          <div class="absolute">{{ Heroicons.Outline.key(class: "w-6 h-6 ml-2 text-gray-400") }}</div>
+            value={"#{@user["password"]}"} opts={placeholder: "Password"} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
+          <div class="absolute">{Heroicons.Outline.key(class: "w-6 h-6 ml-2 text-gray-400")}</div>
         </div>
       </Field>
       <Submit class="bg-brand-800 w-full rounded-md font-semibold text-white py-1.5 my-2 flex items-center gap-2 justify-center">
-        {{ Heroicons.Outline.inbox(class: "w-6 h-6")}}
+        {Heroicons.Outline.inbox(class: "w-6 h-6")}
         Update password
       </Submit>
     </Form>
@@ -189,82 +189,82 @@ defmodule SupabaseSurface.Components.Auth do
   end
 
   defp render_magic(assigns) do
-    ~H"""
+    ~F"""
     <Form
-      :if={{ @magic_link }}
-      for={{ :magic_user }} change="change" submit="submit">
+      :if={@magic_link}
+      for={:magic_user} change="change" submit="submit">
       <Field name="email" class="font-semibold text-md mb-4">
         <Label>Email address</Label>
         <div class="control flex items-center mt-4">
           <TextInput
-            value="{{ @user["email"] }}" opts={{ placeholder: "Your email address" }} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
-          <div class="absolute">{{ Heroicons.Outline.mail(class: "w-6 h-6 ml-2 text-gray-400") }}</div>
+            value={"#{@user["email"]}"} opts={placeholder: "Your email address"} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
+          <div class="absolute">{Heroicons.Outline.mail(class: "w-6 h-6 ml-2 text-gray-400")}</div>
         </div>
       </Field>
       <Submit class="bg-brand-800 w-full rounded-md font-semibold text-white py-1.5 my-2 flex items-center gap-2 justify-center">
-        {{ Heroicons.Outline.inbox(class: "w-6 h-6")}}
+        {Heroicons.Outline.inbox(class: "w-6 h-6")}
         Send Magic Link
       </Submit>
     </Form>
-    <Link :if={{ @password_login }} opts={{ "@click": "view = 'password'" }} class="my-8">
+    <Link :if={@password_login} opts={"@click": "view = 'password'"} class="my-8">
       Sign in with password
     </Link>
     """
   end
 
   defp render_password(assigns) do
-    ~H"""
+    ~F"""
     <Form
-      :if={{ @password_login }}
-      for={{ :password_user }} as={{ :user }} change="change" submit="submit"
+      :if={@password_login}
+      for={:password_user} as={:user} change="change" submit="submit"
     >
-      <Space size=6 direction="vertical">
-        <Space size=3 direction="vertical">
+      <Space size={6} direction="vertical">
+        <Space size={3} direction="vertical">
           <Field name="email" class="font-semibold text-md mb-4">
             <Label>Email address</Label>
             <div class="control flex items-center mt-4">
               <TextInput
-                value="{{ @user["email"] }}" opts={{ placeholder: "Your email address" }} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
-              <div class="absolute">{{ Heroicons.Outline.mail(class: "w-6 h-6 ml-2 text-gray-400") }}</div>
+                value={"#{@user["email"]}"} opts={placeholder: "Your email address"} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
+              <div class="absolute">{Heroicons.Outline.mail(class: "w-6 h-6 ml-2 text-gray-400")}</div>
             </div>
           </Field>
           <Field name="password" class="font-semibold text-md mb-4">
             <Label>Password</Label>
             <div class="control flex items-center mt-4">
               <PasswordInput
-                value="{{ @user["password"] }}" opts={{ placeholder: "Password" }} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
-              <div class="absolute">{{ Heroicons.Outline.key(class: "w-6 h-6 ml-2 text-gray-400") }}</div>
+                value={"#{@user["password"]}"} opts={placeholder: "Password"} class="placeholder-gray-400 text-xs pl-10 py-2 bg-transparent border border-gray-400 rounded-md w-full" />
+              <div class="absolute">{Heroicons.Outline.key(class: "w-6 h-6 ml-2 text-gray-400")}</div>
             </div>
           </Field>
         </Space>
-        <Space direction="vertical" size=6 opts={{ "x-show": "view === 'password'", "x-cloak": "" }}>
-          <HiddenInput name="login_type" opts={{ "x-bind:value": "view" }} />
-          <Space direction="vertical" size=2 class="justify-end">
-            <Link opts={{ "@click": "view = 'reset'" }}>Forgot your password?</Link>
+        <Space direction="vertical" size={6} opts={"x-show": "view === 'password'", "x-cloak": ""}>
+          <HiddenInput name="login_type" opts={"x-bind:value": "view"} />
+          <Space direction="vertical" size={2} class="justify-end">
+            <Link opts={"@click": "view = 'reset'"}>Forgot your password?</Link>
           </Space>
           <span class="sbui-btn-container sbui-btn--w-full">
           <Submit class="bg-brand-800 w-full rounded-md font-semibold text-white py-1.5 my-2 flex items-center gap-2 justify-center">
-            {{ Heroicons.Outline.lock_closed(class: "w-6 h-6") }}
+            {Heroicons.Outline.lock_closed(class: "w-6 h-6")}
             Sign in</Submit>
           </span>
         </Space>
-        <Space direction="vertical" size=6 opts={{ "x-show": "view === 'register'", "x-cloak": "" }}>
+        <Space direction="vertical" size={6} opts={"x-show": "view === 'register'", "x-cloak": ""}>
           <Submit class="bg-brand-800 w-full rounded-md font-semibold text-white py-1.5 my-2 flex items-center gap-2 justify-center">
-            {{ Heroicons.Outline.lock_closed(class: "w-6 h-6") }}
+            {Heroicons.Outline.lock_closed(class: "w-6 h-6")}
             Sign up
           </Submit>
         </Space>
       </Space>
-      <Space direction="vertical" size=2 opts={{ "x-show": "view === 'password'", "x-cloak": "" }} class="text-center">
-        <Link opts={{ "@click": "view = 'magic'" }} class="text-center">
+      <Space direction="vertical" size={2} opts={"x-show": "view === 'password'", "x-cloak": ""} class="text-center">
+        <Link opts={"@click": "view = 'magic'"} class="text-center">
           Sign in with magic link
         </Link>
-        <Link opts={{ "@click": "view = 'register'" }} class="text-center">
+        <Link opts={"@click": "view = 'register'"} class="text-center">
           Don't have an account? Sign up
         </Link>
       </Space>
-      <Space direction="vertical" size=2 opts={{ "x-show": "view === 'register'", "x-cloak": "" }} class="text-center">
-        <Link opts={{ "@click": "view = 'password'" }} class="text-center">
+      <Space direction="vertical" size={2} opts={"x-show": "view === 'register'", "x-cloak": ""} class="text-center">
+        <Link opts={"@click": "view = 'password'"} class="text-center">
           Do you have an account? Sign in
         </Link>
       </Space>

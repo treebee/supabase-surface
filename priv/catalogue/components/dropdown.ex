@@ -13,34 +13,34 @@ defmodule SupabaseSurface.Components.Dropdown.Menu do
     alias SupabaseSurface.Components.Typography
 
     def render(assigns) do
-      ~H"""
+      ~F"""
       <Dropdown
-        transition={{
+        transition={
           enter: "transition ease-out origin-top-left duration-200",
           enter_start: "opacity-0 transform scale-90",
           enter_end: "opacity-100 transform scale-100",
           leave: "transition origin-top-left ease-in duration-100",
           leave_start: "opacity-100 transform scale-100",
           leave_end: "opacity-0 transform scale-90"
-        }}
+        }
       >
         <DropdownItem to="#" class="hover:bg-gray-300">
-          <DropdownItemIcon>{{ Heroicons.Outline.user(class: "w-4 h-4") }}</DropdownItemIcon>
+          <DropdownItemIcon>{Heroicons.Outline.user(class: "w-4 h-4")}</DropdownItemIcon>
           <Typography.Text>Profile</Typography.Text>
         </DropdownItem>
         <DropdownItem to="#" class="hover:bg-gray-300">
-          <DropdownItemIcon>{{ Heroicons.Outline.cog(class: "w-4 h-4") }}</DropdownItemIcon>
+          <DropdownItemIcon>{Heroicons.Outline.cog(class: "w-4 h-4")}</DropdownItemIcon>
           <Typography.Text>Settings</Typography.Text>
         </DropdownItem>
-        <template slot="items">
+        <#template slot="items">
           <Divider light />
-        </template>
-        <DropdownItem to="#" method={{ :post }} class="hover:bg-gray-300">
-          <DropdownItemIcon>{{ Heroicons.Outline.logout(class: "w-4 h-4") }}</DropdownItemIcon>
+        </#template>
+        <DropdownItem to="#" method={:post} class="hover:bg-gray-300">
+          <DropdownItemIcon>{Heroicons.Outline.logout(class: "w-4 h-4")}</DropdownItemIcon>
           <Typography.Text>Logout</Typography.Text>
         </DropdownItem>
         <Button
-          opts={{ "@click": "open = !open", "@click.away": "open = false", "@keydown.escape.window": "open = false" }}
+          opts={"@click": "open = !open", "@click.away": "open = false", "@keydown.escape.window": "open = false"}
         >
           Click me
         </Button>
@@ -66,49 +66,49 @@ defmodule SupabaseSurface.Components.Dropdown.Placement do
 
 
     def render(assigns) do
-      ~H"""
+      ~F"""
       <div class="my-16">
         <div class="p-8">
-          {{ render_dropdown(assigns) }}
+          {render_dropdown(assigns)}
         </div>
       </div>
       """
     end
 
     defp render_dropdown(assigns) do
-      ~H"""
-      <Dropdown :for={{ placement <- ["bottom center", "bottom left", "bottom right", "top center", "top right", "top left", "right center", "left center"] }}
-          transition={{
+      ~F"""
+      <Dropdown :for={placement <- ["bottom center", "bottom left", "bottom right", "top center", "top right", "top left", "right center", "left center"]}
+          transition={
             enter: "transition ease-out origin-top-left duration-200",
             enter_start: "opacity-0 transform scale-90",
             enter_end: "opacity-100 transform scale-100",
             leave: "transition origin-top-left ease-in duration-100",
             leave_start: "opacity-100 transform scale-100",
             leave_end: "opacity-0 transform scale-90"
-          }}
-          side={{ get_side(placement) }}
-          align={{ get_align(placement) }}
+          }
+          side={get_side(placement)}
+          align={get_align(placement)}
         >
           <DropdownItem class="hover:bg-gray-300">
-            <DropdownItemIcon>{{ Heroicons.Outline.user(class: "w-4 h-4") }}</DropdownItemIcon>
+            <DropdownItemIcon>{Heroicons.Outline.user(class: "w-4 h-4")}</DropdownItemIcon>
             <Typography.Text>Profile</Typography.Text>
           </DropdownItem>
           <DropdownItem class="hover:bg-gray-300">
-            <DropdownItemIcon>{{ Heroicons.Outline.cog(class: "w-4 h-4") }}</DropdownItemIcon>
+            <DropdownItemIcon>{Heroicons.Outline.cog(class: "w-4 h-4")}</DropdownItemIcon>
             <Typography.Text>Settings</Typography.Text>
           </DropdownItem>
-          <template slot="items">
+          <#template slot="items">
             <Divider light />
-          </template>
-          <DropdownItem method={{ :post }} class="hover:bg-gray-300">
-            <DropdownItemIcon>{{ Heroicons.Outline.logout(class: "w-4 h-4") }}</DropdownItemIcon>
+          </#template>
+          <DropdownItem method={:post} class="hover:bg-gray-300">
+            <DropdownItemIcon>{Heroicons.Outline.logout(class: "w-4 h-4")}</DropdownItemIcon>
             <Typography.Text>Logout</Typography.Text>
           </DropdownItem>
           <Button
             type="outline"
-            opts={{ "@click": "open = !open", "@click.away": "open = false", "@keydown.escape.window": "open = false" }}
+            opts={"@click": "open = !open", "@click.away": "open = false", "@keydown.escape.window": "open = false"}
           >
-            {{ placement }}
+            {placement}
           </Button>
         </Dropdown>
       """

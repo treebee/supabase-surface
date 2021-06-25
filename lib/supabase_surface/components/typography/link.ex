@@ -28,9 +28,9 @@ defmodule SupabaseSurface.Components.Typography.Link do
     classes = ["sbui-typography", "sbui-typography-link"]
     attrs = opts_to_attrs(assigns.opts)
 
-    ~H"""
-    <a class={{ classes, @class }} target={{ @target }} href={{ @href }} rel="noopener noreferrer" :on-click={{ @click }} :attrs={{ attrs }}>
-      <slot />
+    ~F"""
+    <a class={classes, @class} target={@target} href={@href} rel="noopener noreferrer" :on-click={@click} :attrs={attrs}>
+      <#slot />
     </a>
     """
   end

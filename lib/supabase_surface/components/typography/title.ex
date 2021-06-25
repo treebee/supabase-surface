@@ -12,36 +12,36 @@ defmodule SupabaseSurface.Components.Typography.Title do
 
   @impl true
   def render(%{level: 1} = assigns) do
-    ~H"""
-      <h1 class={{ "sbui-typography-title", @class }}><slot /></h1>
+    ~F"""
+      <h1 class={"sbui-typography-title", @class}><#slot /></h1>
     """
   end
 
   @impl true
   def render(%{level: 2} = assigns) do
-    ~H"""
-      <h2 class={{ "sbui-typography-title", @class }}><slot /></h2>
+    ~F"""
+      <h2 class={"sbui-typography-title", @class}><#slot /></h2>
     """
   end
 
   @impl true
   def render(%{level: 3} = assigns) do
-    ~H"""
-      <h3 class={{ "sbui-typography-title", @class }}><slot /></h3>
+    ~F"""
+      <h3 class={"sbui-typography-title", @class}><#slot /></h3>
     """
   end
 
   @impl true
   def render(%{level: 4} = assigns) do
-    ~H"""
-      <h4 class={{ "sbui-typography-title", @class }}><slot /></h4>
+    ~F"""
+      <h4 class={"sbui-typography-title", @class}><#slot /></h4>
     """
   end
 
   @impl true
   def render(%{level: 5} = assigns) do
-    ~H"""
-      <h5 class={{ "sbui-typography-title", @class }}><slot /></h5>
+    ~F"""
+      <h5 class={"sbui-typography-title", @class}><#slot /></h5>
     """
   end
 end

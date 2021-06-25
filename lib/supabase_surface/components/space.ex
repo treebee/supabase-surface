@@ -21,8 +21,8 @@ defmodule SupabaseSurface.Components.Space do
     classes = build_classes(assigns)
     attrs = opts_to_attrs(assigns.opts)
 
-    ~H"""
-    <div class={{ @class, classes }} :attrs={{ attrs }}><slot /></div>
+    ~F"""
+    <div class={@class, classes} :attrs={attrs}><#slot /></div>
     """
   end
 

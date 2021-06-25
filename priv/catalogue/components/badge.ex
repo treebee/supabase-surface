@@ -11,7 +11,7 @@ defmodule SupabaseSurface.Components.Badge.Basic do
     alias SupabaseSurface.Components.Badge
 
     def render(assigns) do
-      ~H"""
+      ~F"""
       <div class="dark p-8 bg-dark-700">
         <Badge color="blue">blue</Badge>
         <Badge color="gray">gray</Badge>
@@ -39,7 +39,7 @@ defmodule SupabaseSurface.Components.Badge.Dot do
     alias SupabaseSurface.Components.Badge
 
     def render(assigns) do
-      ~H"""
+      ~F"""
       <div class="dark p-8 bg-dark-700">
         <Badge dot color="blue">blue</Badge>
         <Badge dot size="large" color="pink">pink</Badge>

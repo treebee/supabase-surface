@@ -29,15 +29,15 @@ defmodule SupabaseSurface.Components.Form.TextInput do
     attr_opts = props_to_attr_opts(assigns, [:value, class: class])
     event_opts = events_to_opts(assigns)
 
-    ~H"""
-      <Field name={{ @name }} class="sbui-formlayout sbui-formlayout--medium sbui-formlayout--responsive">
+    ~F"""
+      <Field name={@name} class="sbui-formlayout sbui-formlayout--medium sbui-formlayout--responsive">
         <div class="sbui-space-row sbui-space-x-2 sbui-formlayout__label-container-horizontal">
-          <Label :if={{ @label }} class="sbui-formlayout__label">{{ @label }}</Label>
+          <Label :if={@label} class="sbui-formlayout__label">{@label}</Label>
         </div>
         <div class="sbui-formlayout__content-container-horizontal">
-          <InputContext assigns={{ assigns }} :let={{ form: form, field: field }}>
+          <InputContext assigns={assigns} :let={form: form, field: field}>
             <div class="sbui-input-container">
-            {{ text_input(form, field, helper_opts ++ attr_opts ++ @opts ++ event_opts) }}
+            {text_input(form, field, helper_opts ++ attr_opts ++ @opts ++ event_opts)}
             </div>
           </InputContext>
         </div>

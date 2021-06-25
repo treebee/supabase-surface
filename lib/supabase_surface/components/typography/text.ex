@@ -38,32 +38,32 @@ defmodule SupabaseSurface.Components.Typography.Text do
   end
 
   def render_text(classes, %{html_type: "span"} = assigns, attrs) do
-    ~H"""
-    <span class={{ classes, @class }} :attrs={{ attrs }}><slot /></span>
+    ~F"""
+    <span class={classes, @class} :attrs={attrs}><#slot /></span>
     """
   end
 
   def render_text(classes, %{html_type: "kbd"} = assigns, attrs) do
-    ~H"""
-    <kbd class={{ classes, @class }} :attrs={{ attrs }}><slot /></kbd>
+    ~F"""
+    <kbd class={classes, @class} :attrs={attrs}><#slot /></kbd>
     """
   end
 
   def render_text(classes, %{html_type: "code"} = assigns, attrs) do
-    ~H"""
-    <code class={{ classes, @class }} :attrs={{ attrs }}><slot /></code>
+    ~F"""
+    <code class={classes, @class} :attrs={attrs}><#slot /></code>
     """
   end
 
   def render_text(classes, %{html_type: "mark"} = assigns, attrs) do
-    ~H"""
-    <mark class={{ classes, @class }} :attrs={{ attrs }}><slot /></mark>
+    ~F"""
+    <mark class={classes, @class} :attrs={attrs}><#slot /></mark>
     """
   end
 
   def render_text(classes, %{html_type: "strong"} = assigns, attrs) do
-    ~H"""
-    <strong class={{ classes, @class }} :attrs={{ attrs }}><slot /></strong>
+    ~F"""
+    <strong class={classes, @class} :attrs={attrs}><#slot /></strong>
     """
   end
 

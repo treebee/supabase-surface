@@ -6,7 +6,7 @@ defmodule SupabaseSurface.Components.BadgeTest do
   test "creates blue badge" do
     html =
       render_surface do
-        ~H"""
+        ~F"""
         <Badge color="blue">my badge</Badge>
         """
       end
@@ -19,7 +19,7 @@ defmodule SupabaseSurface.Components.BadgeTest do
   test "creates badge with dot" do
     html =
       render_surface do
-        ~H"""
+        ~F"""
         <Badge dot color="blue">my badge</Badge>
         """
       end
@@ -30,7 +30,7 @@ defmodule SupabaseSurface.Components.BadgeTest do
   test "creates large badge" do
     html =
       render_surface do
-        ~H"""
+        ~F"""
         <Badge size="large" color="blue">my badge</Badge>
         """
       end

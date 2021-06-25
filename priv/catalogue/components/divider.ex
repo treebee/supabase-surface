@@ -9,7 +9,7 @@ defmodule SupabaseSurface.Components.Divider.Content do
     height: "200px"
 
   def render(assigns) do
-    ~H"""
+    ~F"""
     <div class="p-4">
       <Divider> some text </Divider>
     </div>

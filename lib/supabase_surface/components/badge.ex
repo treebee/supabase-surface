@@ -23,16 +23,16 @@ defmodule SupabaseSurface.Components.Badge do
 
     classes = if assigns.size == "large", do: ["sbui-badge--large" | classes], else: classes
 
-    ~H"""
-    <span class={{ classes }}>{{ render_dot(assigns) }}<slot /></span>
+    ~F"""
+    <span class={classes}>{render_dot(assigns)}<#slot /></span>
     """
   end
 
   def render_dot(%{dot: false}), do: ""
 
   def render_dot(%{dot: true} = assigns) do
-    ~H"""
-    <svg class="sbui-badge-dot sbui-badge--{{ @color }}"
+    ~F"""
+    <svg class={"sbui-badge-dot sbui-badge--#{@color}"}
       fill="currentColor"
       viewBox="0 0 8 8"
     >

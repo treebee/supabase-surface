@@ -80,15 +80,15 @@ defmodule SupabaseSurface.Components.Button do
     opts = apply_method(assigns.to, assigns.method, assigns.opts) ++ events_to_opts(assigns)
     attrs = opts_to_attrs(opts)
 
-    ~H"""
+    ~F"""
     <button
-      id={{ @id }}
-      type={{ @html_type }}
-      class={{ @class, build_classes(assigns), "flex gap-2": @loading }}
-      aria_label={{ @aria_label }}
-      :attrs={{ attrs }}
-      disabled={{ @loading or @disabled }}
-    ><div :if={{ @loading }} class="sbui-icon-container sbui-btn--anim--spin">{{ Feathericons.loader(class: "w-4 h-4") }}</div><slot /></button>
+      id={@id}
+      type={@html_type}
+      class={@class, build_classes(assigns), "flex gap-2": @loading}
+      aria_label={@aria_label}
+      :attrs={attrs}
+      disabled={@loading or @disabled}
+    ><div :if={@loading} class="sbui-icon-container sbui-btn--anim--spin">{Feathericons.loader(class: "w-4 h-4")}</div><#slot /></button>
     """
   end
 

@@ -7,12 +7,12 @@ defmodule SupabaseSurface.Components.DropdownTest do
   test "renders dropdown with items" do
     html =
       render_surface do
-        ~H"""
+        ~F"""
         <Dropdown>
           <DropdownItem>Settings</DropdownItem>
           <DropdownItem>Logout</DropdownItem>
           <Button
-            opts={{ "@click": "open = !open", "@click.away": "open = false", "@keydown.escape.window": "open = false" }}
+            opts={"@click": "open = !open", "@click.away": "open = false", "@keydown.escape.window": "open = false"}
           >
             open
           </Button>

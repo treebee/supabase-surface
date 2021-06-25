@@ -6,7 +6,7 @@ defmodule SupabaseSurface.Components.DividerTest do
   test "renders divider" do
     html =
       render_surface do
-        ~H"""
+        ~F"""
         <Divider />
         """
       end
@@ -19,7 +19,7 @@ defmodule SupabaseSurface.Components.DividerTest do
   test "creates a divider with content" do
     html =
       render_surface do
-        ~H"""
+        ~F"""
         <Divider>some text</Divider>
         """
       end

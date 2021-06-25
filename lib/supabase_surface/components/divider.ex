@@ -29,9 +29,9 @@ defmodule SupabaseSurface.Components.Divider do
         if assigns.type == "horizontal", do: ["sbui-divider--no-text" | classes], else: classes
       end
 
-    ~H"""
-    <div class={{ @class, classes }} role="seperator">
-      <span :if={{ has_content }} class="sbui-divider__content"><slot /></span>
+    ~F"""
+    <div class={@class, classes} role="seperator">
+      <span :if={has_content} class="sbui-divider__content"><#slot /></span>
     </div>
     """
   end

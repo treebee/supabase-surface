@@ -8,8 +8,8 @@ defmodule SupabaseSurface.Components.Auth.Full do
     alias SupabaseSurface.Components.Auth
 
     def render(assigns) do
-      ~H"""
-      <Auth id="supabase-auth" password_login={{ true }} providers={{ ["google", "github", "twitter"] }} />
+      ~F"""
+      <Auth id="supabase-auth" password_login={true} providers={["google", "github", "twitter"]} />
       """
     end
 end
@@ -24,7 +24,7 @@ defmodule SupabaseSurface.Components.Auth.MagicLink do
     alias SupabaseSurface.Components.Auth
 
     def render(assigns) do
-      ~H"""
+      ~F"""
       <Auth id="supabase-auth" />
       """
     end
@@ -40,8 +40,8 @@ defmodule SupabaseSurface.Components.Auth.Social do
     alias SupabaseSurface.Components.Auth
 
     def render(assigns) do
-      ~H"""
-      <Auth id="supabase-auth" magic_link={{ false }} providers={{ ["github", "google"] }} />
+      ~F"""
+      <Auth id="supabase-auth" magic_link={false} providers={["github", "google"]} />
       """
     end
 end
