@@ -1,8 +1,8 @@
 defmodule SupabaseSurface.Catalogue do
   use Surface.Catalogue
 
-  load_asset "../static/css/app.css", as: :css
-  load_asset "../static/js/supabase_surface.js", as: :js
+  load_asset("../static/css/app.css", as: :css)
+  load_asset("../static/js/supabase_surface.js", as: :js)
 
   @impl true
   def config() do
@@ -14,7 +14,7 @@ defmodule SupabaseSurface.Catalogue do
       head_js: "<script>#{@js}</script>",
       example: [
         body: [
-          class: "p-2 h-full bg-dark-700 dark"
+          class: "p-2 h-full bg-dark-700 dark text-gray-200"
         ]
       ]
     ]
