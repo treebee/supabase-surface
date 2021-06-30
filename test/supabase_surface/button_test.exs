@@ -53,6 +53,5 @@ defmodule SupabaseSurface.Components.ButtonTest do
     assert html =~ "disabled"
     assert html =~ "disabled><div class=\"sbui-icon-container sbui-btn--anim--spin\"><svg xmlns="
     assert html =~ "</svg></div>Save</button>"
-
   end
 end

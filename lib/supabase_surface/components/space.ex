@@ -28,7 +28,12 @@ defmodule SupabaseSurface.Components.Space do
 
   defp build_classes(assigns) do
     classes = [direction_class(assigns.direction)]
-    classes = ["sbui-#{minus(assigns.minus)}space-#{direction(assigns.direction)}-#{assigns.size}" | classes]
+
+    classes = [
+      "sbui-#{minus(assigns.minus)}space-#{direction(assigns.direction)}-#{assigns.size}"
+      | classes
+    ]
+
     if assigns.block, do: ["sbui-space--block" | classes], else: classes
   end
 
