@@ -1,8 +1,8 @@
 defmodule SupabaseSurface.Catalogue do
   use Surface.Catalogue
 
-  load_asset "../static/css/app.css", as: :css
-  load_asset "../static/js/supabase_surface.js", as: :js
+  load_asset("../static/css/app.css", as: :css)
+  load_asset("../static/js/supabase_surface.js", as: :js)
 
   @impl true
   def config() do
@@ -11,7 +11,10 @@ defmodule SupabaseSurface.Catalogue do
       <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
       <style>#{@css}</style>
       """,
-      head_js: "<script>#{@js}</script>",
+      head_js: """
+      <script defer type="module" src="/js/app.js"></script>
+      <script>#{@js}</script>
+      """,
       example: [
         body: [
           class: "p-2 h-full bg-dark-700 dark"
