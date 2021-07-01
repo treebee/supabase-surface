@@ -19,5 +19,4 @@ config :surface_catalogue,
   title: "Supabase UI",
   subtitle: "Surface Components for Supabase"
 
-config :surface_catalogue, Phoenix.Endpoint,
-  code_reloader: true
+config :surface_catalogue, Phoenix.Endpoint, code_reloader: true

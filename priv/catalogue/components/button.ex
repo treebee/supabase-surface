@@ -13,19 +13,19 @@ defmodule SupabaseSurface.Components.Button.Types do
     catalogue: SupabaseSurface.Catalogue,
     height: "200px"
 
-    alias SupabaseSurface.Components.Button
+  alias SupabaseSurface.Components.Button
 
-    def render(assigns) do
-      ~F"""
-      <Button type="primary">Primary Button</Button>
-      <Button type="secondary">Secondary Button</Button>
-      <Button type="default">Default Button</Button>
-      <Button type="dashed">Dashed Button</Button>
-      <Button type="outline">Outline Button</Button>
-      <Button type="text">Text Button</Button>
-      <Button type="link">Link Button</Button>
-      """
-    end
+  def render(assigns) do
+    ~F"""
+    <Button type="primary">Primary Button</Button>
+    <Button type="secondary">Secondary Button</Button>
+    <Button type="default">Default Button</Button>
+    <Button type="dashed">Dashed Button</Button>
+    <Button type="outline">Outline Button</Button>
+    <Button type="text">Text Button</Button>
+    <Button type="link">Link Button</Button>
+    """
+  end
 end
 
 defmodule SupabaseSurface.Components.Button.Size do
@@ -44,18 +44,17 @@ defmodule SupabaseSurface.Components.Button.Size do
     catalogue: SupabaseSurface.Catalogue,
     height: "200px"
 
-    alias SupabaseSurface.Components.Button
+  alias SupabaseSurface.Components.Button
 
-    def render(assigns) do
-      ~F"""
-      <Button size="tiny">tiny</Button>
-      <Button size="small">small</Button>
-      <Button size="medium">medium</Button>
-      <Button size="large">large</Button>
-      <Button size="xlarge">xlarge</Button>
-      """
-    end
-
+  def render(assigns) do
+    ~F"""
+    <Button size="tiny">tiny</Button>
+    <Button size="small">small</Button>
+    <Button size="medium">medium</Button>
+    <Button size="large">large</Button>
+    <Button size="xlarge">xlarge</Button>
+    """
+  end
 end
 
 defmodule SupabaseSurface.Components.Button.States do
@@ -69,16 +68,15 @@ defmodule SupabaseSurface.Components.Button.States do
     catalogue: SupabaseSurface.Catalogue,
     height: "200px"
 
-    alias SupabaseSurface.Components.Button
+  alias SupabaseSurface.Components.Button
 
-    def render(assigns) do
-      ~F"""
-      <Button loading type="outline" class="m-2">loading</Button>
-      <Button loading size="xlarge" class="m-2">loading</Button>
-      <Button disabled class="m-2">disabled</Button>
-      """
-    end
-
+  def render(assigns) do
+    ~F"""
+    <Button loading type="outline" class="m-2">loading</Button>
+    <Button loading size="xlarge" class="m-2">loading</Button>
+    <Button disabled class="m-2">disabled</Button>
+    """
+  end
 end
 
 defmodule SupabaseSurface.Catalogue.Button.Playground do
@@ -88,9 +86,11 @@ defmodule SupabaseSurface.Catalogue.Button.Playground do
     height: "200px",
     container: {:div, class: "dark bg-dark-800"}
 
-    def render(assigns) do
-      ~F"""
-      <Button>My Button</Button>
-      """
-    end
+  data props, :map, default: %{}
+
+  def render(assigns) do
+    ~F"""
+    <Button :props={@props}>My Button</Button>
+    """
+  end
 end

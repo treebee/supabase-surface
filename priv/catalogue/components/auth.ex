@@ -5,13 +5,13 @@ defmodule SupabaseSurface.Components.Auth.Full do
     height: "700px",
     title: "Complete Example"
 
-    alias SupabaseSurface.Components.Auth
+  alias SupabaseSurface.Components.Auth
 
-    def render(assigns) do
-      ~F"""
-      <Auth id="supabase-auth" password_login={true} providers={["google", "github", "twitter"]} />
-      """
-    end
+  def render(assigns) do
+    ~F"""
+    <Auth id="supabase-auth" password_login={true} providers={["google", "github", "twitter"]} />
+    """
+  end
 end
 
 defmodule SupabaseSurface.Components.Auth.MagicLink do
@@ -21,13 +21,13 @@ defmodule SupabaseSurface.Components.Auth.MagicLink do
     height: "300px",
     title: "Only Magic Link"
 
-    alias SupabaseSurface.Components.Auth
+  alias SupabaseSurface.Components.Auth
 
-    def render(assigns) do
-      ~F"""
-      <Auth id="supabase-auth" />
-      """
-    end
+  def render(assigns) do
+    ~F"""
+    <Auth id="supabase-auth" />
+    """
+  end
 end
 
 defmodule SupabaseSurface.Components.Auth.Social do
@@ -37,11 +37,11 @@ defmodule SupabaseSurface.Components.Auth.Social do
     height: "300px",
     title: "Only Social Providers"
 
-    alias SupabaseSurface.Components.Auth
+  alias SupabaseSurface.Components.Auth
 
-    def render(assigns) do
-      ~F"""
-      <Auth id="supabase-auth" magic_link={false} providers={["github", "google"]} />
-      """
-    end
+  def render(assigns) do
+    ~F"""
+    <Auth id="supabase-auth" magic_link={false} providers={["github", "google"]} />
+    """
+  end
 end
