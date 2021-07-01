@@ -81,21 +81,22 @@ defmodule SupabaseSurface.Components.Button do
     attrs = opts_to_attrs(opts)
 
     ~F"""
-    <button
-      id={@id}
-      type={@html_type}
-      class={@class, build_classes(assigns), "flex gap-2": @loading}
-      aria_label={@aria_label}
-      :attrs={attrs}
-      disabled={@loading or @disabled}
-    ><div :if={@loading} class="sbui-icon-container sbui-btn--anim--spin">{Feathericons.loader(class: "w-4 h-4")}</div><#slot /></button>
+    <span class="sbui-btn-container">
+      <button
+        id={@id}
+        type={@html_type}
+        class={build_classes(assigns), @class, "flex gap-2": @loading}
+        aria_label={@aria_label}
+        :attrs={attrs}
+        disabled={@loading or @disabled}
+      ><div :if={@loading} class="sbui-icon-container sbui-btn--anim--spin">{Feathericons.loader(class: "w-4 h-4")}</div><span><#slot /></span></button>
+    </span>
     """
   end
 
   defp build_classes(assigns) do
     classes = [
       "sbui-btn",
-      "sbui-btn-container",
       "sbui-btn-#{assigns.type}",
       "sbui-btn--#{assigns.size}"
     ]
