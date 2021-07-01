@@ -22,6 +22,7 @@ defmodule SupabaseSurface.Components.Tabs do
 
   prop type, :string, values: ["pills", "underlined", "cards"], default: "pills"
   prop size, :string, values: ["tiny", "small", "medium", "large", "xlarge"], default: "tiny"
+  prop block, :boolean, default: false
   data active_tab, :string
   data animation, :string, default: ""
   slot tabs
@@ -49,6 +50,7 @@ defmodule SupabaseSurface.Components.Tabs do
             <Button
              :for={{tab, _index} <- Enum.with_index(@tabs)}
              click="tab_click"
+             block={@block}
              size={@size}
              type={button_type(active_tab, tab.label, underlined)}
              opts={role: "tab", "phx-value-label": tab.label}
@@ -157,6 +159,26 @@ defmodule SupabaseSurface.Components.Tabs.Underlined do
     <Tabs id="example-tabs" type="underlined">
       <Tab label="tab 1">tab 1</Tab>
       <Tab label="tab 2">tab 2</Tab>
+    </Tabs>
+    """
+  end
+end
+
+defmodule SupabaseSurface.Components.Tabs.Block do
+  use Surface.Catalogue.Example,
+    catalogue: SupabaseSurface.Catalogue,
+    subject: SupabaseSurface.Components.Tabs,
+    height: "200px",
+    title: "Block"
+
+  alias SupabaseSurface.Components.Tabs
+  alias SupabaseSurface.Components.Tab
+
+  def render(assigns) do
+    ~F"""
+    <Tabs id="example-tabs" block>
+      <Tab label="tab 1">Nunc pellentesque gravida ultricies. Integer non mollis lorem. Morbi vel hendrerit nibh, in egestas magna.</Tab>
+      <Tab label="tab 2">Etiam varius lectus lectus, nec pharetra lacus commodo quis.</Tab>
     </Tabs>
     """
   end
