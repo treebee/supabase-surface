@@ -12,7 +12,9 @@ defmodule SupabaseSurface.Components.ButtonTest do
       end
 
     assert html =~ """
-           <button type="button" class="sbui-btn sbui-btn-container sbui-btn-primary sbui-btn--tiny">my button</button>
+           <span class="sbui-btn-container">
+             <button type="button" class="sbui-btn sbui-btn-primary sbui-btn--tiny"><span>my button</span></button>
+           </span>
            """
   end
 
@@ -25,7 +27,7 @@ defmodule SupabaseSurface.Components.ButtonTest do
       end
 
     assert html =~ """
-           <button type="button" class="sbui-btn sbui-btn-container sbui-btn-primary sbui-btn--tiny" disabled>disabled</button>
+           <button type="button" class="sbui-btn sbui-btn-primary sbui-btn--tiny" disabled><span>disabled</span></button>
            """
   end
 
@@ -38,7 +40,7 @@ defmodule SupabaseSurface.Components.ButtonTest do
       end
 
     assert html =~ """
-           <button data-method=\"get\" data-to=\"/settings\" type=\"button\" class=\"sbui-btn sbui-btn-container sbui-btn-link sbui-btn--tiny\">Settings</button>
+           <button data-method=\"get\" data-to=\"/settings\" type=\"button\" class=\"sbui-btn sbui-btn-link sbui-btn--tiny\"><span>Settings</span></button>
            """
   end
 
@@ -52,6 +54,6 @@ defmodule SupabaseSurface.Components.ButtonTest do
 
     assert html =~ "disabled"
     assert html =~ "disabled><div class=\"sbui-icon-container sbui-btn--anim--spin\"><svg xmlns="
-    assert html =~ "</svg></div>Save</button>"
+    assert html =~ "</svg></div><span>Save</span></button>"
   end
 end
