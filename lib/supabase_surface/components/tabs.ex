@@ -13,14 +13,13 @@ defmodule SupabaseSurface.Components.Tab do
 end
 
 defmodule SupabaseSurface.Components.Tabs do
-  use Surface.Component
+  use Surface.LiveComponent
 
   alias SupabaseSurface.Components.Button
   alias SupabaseSurface.Components.Divider
   alias SupabaseSurface.Components.Space
   alias SupabaseSurface.Components.Tab
 
-  prop id, :string
   prop type, :string, values: ["pills", "underlined", "cards"], default: "pills"
   prop size, :string, values: ["tiny", "small", "medium", "large", "xlarge"], default: "tiny"
   data active_tab, :string
@@ -45,7 +44,7 @@ defmodule SupabaseSurface.Components.Tabs do
              click="tab_click"
              size={@size}
              type={button_type(active_tab, tab.label, underlined)}
-             opts={role: "tab", "phx-value-label": tab.label, "@click": "activeTab = '#{tab.label}'; console.log('#{tab.label}')"}
+             opts={role: "tab", "phx-value-label": tab.label}
              class={button_classes(active_tab, tab.label, underlined)}
             >{tab.label}
             </Button>
@@ -57,7 +56,7 @@ defmodule SupabaseSurface.Components.Tabs do
       </div>
       <div
         :for={{tab, index} <- Enum.with_index(@tabs)}
-        x-show={"activeTab == '#{tab.label}'"}
+        :show={active_tab == tab.label}
         id={tab.label}
         role="tabpanel"
         aria-labelledby={tab.label}
@@ -66,6 +65,11 @@ defmodule SupabaseSurface.Components.Tabs do
       </div>
     </Space>
     """
+  end
+
+  @impl true
+  def handle_event("tab_click", %{"label" => label}, socket) do
+    {:noreply, assign(socket, active: label)}
   end
 
   def get_active_tab(%{active: active_tab}) when not is_nil(active_tab), do: active_tab
@@ -110,6 +114,10 @@ defmodule SupabaseSurface.Components.Tabs.Example do
 end
 
 defmodule SupabaseSurface.Components.Tabs.Underlined do
+  @moduledoc """
+  TODO: investigate how to correctly apply styling, currently "sbui-tab-button-underline" and
+  "sbui-tab-button-underline--active" are overridden by other styles
+  """
   use Surface.Catalogue.Example,
     catalogue: SupabaseSurface.Catalogue,
     subject: SupabaseSurface.Components.Tabs,
