@@ -1,3 +1,15 @@
+defmodule SupabaseSurface.Components.Tabs.AddOnBefore do
+  use Surface.Component, slot: "add_on_before"
+
+  slot default, required: true
+
+  def render(assigns) do
+    ~F"""
+    <#slot />
+    """
+  end
+end
+
 defmodule SupabaseSurface.Components.Tab do
   use Surface.Component, slot: "tabs"
 
@@ -26,6 +38,7 @@ defmodule SupabaseSurface.Components.Tabs do
   data active_tab, :string
   data animation, :string, default: ""
   slot tabs
+  slot add_on_before
 
   @impl true
   def update(assigns, socket) do
@@ -47,6 +60,7 @@ defmodule SupabaseSurface.Components.Tabs do
       >
         <Space class="sbui-tab-bar-container" size={0}>
           <Space size={if underlined, do: 6, else: 3} class="sbui-tab-bar-inner-container">
+            <#slot name="add_on_before" />
             <Button
              :for={{tab, _index} <- Enum.with_index(@tabs)}
              click="tab_click"
@@ -177,6 +191,28 @@ defmodule SupabaseSurface.Components.Tabs.Block do
   def render(assigns) do
     ~F"""
     <Tabs id="example-tabs" block>
+      <Tab label="tab 1">Nunc pellentesque gravida ultricies. Integer non mollis lorem. Morbi vel hendrerit nibh, in egestas magna.</Tab>
+      <Tab label="tab 2">Etiam varius lectus lectus, nec pharetra lacus commodo quis.</Tab>
+    </Tabs>
+    """
+  end
+end
+
+defmodule SupabaseSurface.Components.Tabs.ExampleAddOnBefore do
+  use Surface.Catalogue.Example,
+    catalogue: SupabaseSurface.Catalogue,
+    subject: SupabaseSurface.Components.Tabs,
+    height: "200px",
+    title: "AddOnBefore"
+
+  alias SupabaseSurface.Components.Button
+  alias SupabaseSurface.Components.Tabs
+  alias SupabaseSurface.Components.Tab
+
+  def render(assigns) do
+    ~F"""
+    <Tabs id="example-tabs">
+      <Tabs.AddOnBefore><Button type="outline">Action Button</Button></Tabs.AddOnBefore>
       <Tab label="tab 1">Nunc pellentesque gravida ultricies. Integer non mollis lorem. Morbi vel hendrerit nibh, in egestas magna.</Tab>
       <Tab label="tab 2">Etiam varius lectus lectus, nec pharetra lacus commodo quis.</Tab>
     </Tabs>

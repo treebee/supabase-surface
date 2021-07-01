@@ -1,7 +1,10 @@
 defmodule SupabaseSurface.Components.TabsTest do
   use SupabaseSurface.ConnCase, async: true
 
+  alias SupabaseSurface.Components.Button
   alias SupabaseSurface.Components.{Tabs, Tab}
+  alias SupabaseSurface.Components.Tabs.AddOnBefore
+
   import Phoenix.ConnTest
   import Phoenix.LiveViewTest
 
@@ -34,5 +37,20 @@ defmodule SupabaseSurface.Components.TabsTest do
     assert view
            |> element("button", "Overview")
            |> render_click() =~ "Overview Content"
+  end
+
+  test "renders addOnBefore" do
+    html =
+      render_surface do
+        ~F"""
+        <Tabs id="tabs">
+          <AddOnBefore><Button type="outline">Action button</Button></AddOnBefore>
+          <Tab label="Tab one">Tab one content</Tab>
+          <Tab label="Tab two">Tab two content</Tab>
+        </Tabs>
+        """
+      end
+
+    assert html =~ "<span>Action button</span>"
   end
 end
