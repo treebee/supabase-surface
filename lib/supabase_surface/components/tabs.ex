@@ -133,7 +133,6 @@ defmodule SupabaseSurface.Components.Tabs.Underlined do
       <Tab label="tab 1">tab 1</Tab>
       <Tab label="tab 2">tab 2</Tab>
     </Tabs>
-    <span role="button" :on-click="test-click">Click span</span>
     """
   end
 end
