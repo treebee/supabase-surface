@@ -1,4 +1,4 @@
-defmodule SupabaseSurface.Components.Divider.Content do
+defmodule SupabaseSurface.Catalogue.Divider.Content do
   @moduledoc """
   ## Divider with content
 

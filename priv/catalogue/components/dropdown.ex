@@ -1,4 +1,4 @@
-defmodule SupabaseSurface.Components.Dropdown.Menu do
+defmodule SupabaseSurface.Catalogue.Dropdown.Menu do
   use Surface.Catalogue.Example,
     catalogue: SupabaseSurface.Catalogue,
     subject: SupabaseSurface.Components.Dropdown,
@@ -49,7 +49,7 @@ defmodule SupabaseSurface.Components.Dropdown.Menu do
   end
 end
 
-defmodule SupabaseSurface.Components.Dropdown.Placement do
+defmodule SupabaseSurface.Catalogue.Dropdown.Placement do
   use Surface.Catalogue.Example,
     catalogue: SupabaseSurface.Catalogue,
     subject: SupabaseSurface.Components.Dropdown,

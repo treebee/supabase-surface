@@ -1,4 +1,4 @@
-defmodule SupabaseSurface.Components.Auth.Full do
+defmodule SupabaseSurface.Catalogue.Auth.Full do
   use Surface.Catalogue.Example,
     catalogue: SupabaseSurface.Catalogue,
     subject: SupabaseSurface.Components.Auth,
@@ -14,7 +14,7 @@ defmodule SupabaseSurface.Components.Auth.Full do
   end
 end
 
-defmodule SupabaseSurface.Components.Auth.MagicLink do
+defmodule SupabaseSurface.Catalogue.Auth.MagicLink do
   use Surface.Catalogue.Example,
     catalogue: SupabaseSurface.Catalogue,
     subject: SupabaseSurface.Components.Auth,
@@ -30,7 +30,7 @@ defmodule SupabaseSurface.Components.Auth.MagicLink do
   end
 end
 
-defmodule SupabaseSurface.Components.Auth.Social do
+defmodule SupabaseSurface.Catalogue.Auth.Social do
   use Surface.Catalogue.Example,
     catalogue: SupabaseSurface.Catalogue,
     subject: SupabaseSurface.Components.Auth,
