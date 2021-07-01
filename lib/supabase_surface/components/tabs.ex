@@ -134,7 +134,7 @@ defmodule SupabaseSurface.Components.Tabs do
   defp button_type(_, _, _), do: "text"
 end
 
-defmodule SupabaseSurface.Components.Tabs.Example do
+defmodule SupabaseSurface.Catalogue.Tabs.Example do
   use Surface.Catalogue.Example,
     catalogue: SupabaseSurface.Catalogue,
     subject: SupabaseSurface.Components.Tabs,
@@ -154,7 +154,7 @@ defmodule SupabaseSurface.Components.Tabs.Example do
   end
 end
 
-defmodule SupabaseSurface.Components.Tabs.Underlined do
+defmodule SupabaseSurface.Catalogue.Tabs.Underlined do
   @moduledoc """
   TODO: investigate how to correctly apply styling, currently "sbui-tab-button-underline" and
   "sbui-tab-button-underline--active" are overridden by other styles
@@ -178,7 +178,7 @@ defmodule SupabaseSurface.Components.Tabs.Underlined do
   end
 end
 
-defmodule SupabaseSurface.Components.Tabs.Block do
+defmodule SupabaseSurface.Catalogue.Tabs.Block do
   use Surface.Catalogue.Example,
     catalogue: SupabaseSurface.Catalogue,
     subject: SupabaseSurface.Components.Tabs,
@@ -198,7 +198,7 @@ defmodule SupabaseSurface.Components.Tabs.Block do
   end
 end
 
-defmodule SupabaseSurface.Components.Tabs.ExampleAddOnBefore do
+defmodule SupabaseSurface.Catalogue.Tabs.ExampleAddOnBefore do
   use Surface.Catalogue.Example,
     catalogue: SupabaseSurface.Catalogue,
     subject: SupabaseSurface.Components.Tabs,
