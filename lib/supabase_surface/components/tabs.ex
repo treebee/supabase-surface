@@ -23,7 +23,14 @@ defmodule SupabaseSurface.Components.Tabs do
   prop type, :string, values: ["pills", "underlined", "cards"], default: "pills"
   prop size, :string, values: ["tiny", "small", "medium", "large", "xlarge"], default: "tiny"
   data active_tab, :string
+  data animation, :string, default: ""
   slot tabs
+
+  @impl true
+  def update(assigns, socket) do
+    active_tab = get_active_tab(assigns)
+    {:ok, assign(socket, assigns) |> assign(active: active_tab)}
+  end
 
   @impl true
   def render(assigns) do
@@ -60,6 +67,7 @@ defmodule SupabaseSurface.Components.Tabs do
         id={tab.label}
         role="tabpanel"
         aria-labelledby={tab.label}
+        class={@animation}
       >
         <#slot name="tabs" index={index} />
       </div>
@@ -68,29 +76,46 @@ defmodule SupabaseSurface.Components.Tabs do
   end
 
   @impl true
-  def handle_event("tab_click", %{"label" => label}, socket) do
-    {:noreply, assign(socket, active: label)}
+  def handle_event(
+        "tab_click",
+        %{"label" => label},
+        socket
+      ) do
+    animation = get_animation(socket.assigns, label)
+
+    {:noreply, assign(socket, active: label, animation: animation)}
   end
 
-  def get_active_tab(%{active: active_tab}) when not is_nil(active_tab), do: active_tab
+  defp get_animation(assigns, next_label) do
+    active_index = Enum.find_index(assigns.tabs, &(&1.label == assigns.active))
+    next_index = Enum.find_index(assigns.tabs, &(&1.label == next_label))
 
-  def get_active_tab(%{tabs: tabs}) do
+    cond do
+      active_index < next_index -> "slide-in-right"
+      active_index > next_index -> "slide-in-left"
+      true -> assigns.animation
+    end
+  end
+
+  defp get_active_tab(%{active: active_tab}) when not is_nil(active_tab), do: active_tab
+
+  defp get_active_tab(%{tabs: tabs}) do
     first_tab = List.first(tabs)
     first_tab.label
   end
 
-  def button_classes(active_tab, active_tab, true) do
+  defp button_classes(active_tab, active_tab, true) do
     "sbui-tab-button-underline sbui-tab-button-underline--active"
   end
 
-  def button_classes(_, _, true) do
+  defp button_classes(_, _, true) do
     "sbui-tab-button-underline"
   end
 
-  def button_classes(_, _, _), do: ""
+  defp button_classes(_, _, _), do: ""
 
-  def button_type(active_tab, active_tab, false), do: "primary"
-  def button_type(_, _, _), do: "text"
+  defp button_type(active_tab, active_tab, false), do: "primary"
+  defp button_type(_, _, _), do: "text"
 end
 
 defmodule SupabaseSurface.Components.Tabs.Example do
@@ -106,8 +131,8 @@ defmodule SupabaseSurface.Components.Tabs.Example do
   def render(assigns) do
     ~F"""
     <Tabs id="example-tabs">
-      <Tab label="tab 1">tab 1</Tab>
-      <Tab label="tab 2">tab 2</Tab>
+      <Tab label="tab 1">Nunc pellentesque gravida ultricies. Integer non mollis lorem. Morbi vel hendrerit nibh, in egestas magna.</Tab>
+      <Tab label="tab 2">Etiam varius lectus lectus, nec pharetra lacus commodo quis.</Tab>
     </Tabs>
     """
   end
