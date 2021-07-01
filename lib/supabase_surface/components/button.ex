@@ -80,8 +80,17 @@ defmodule SupabaseSurface.Components.Button do
     opts = apply_method(assigns.to, assigns.method, assigns.opts) ++ events_to_opts(assigns)
     attrs = opts_to_attrs(opts)
 
+    container_classes = ["sbui-btn-container"]
+
+    container_classes =
+      if assigns.block do
+        ["sbui-btn--w-full" | container_classes]
+      else
+        container_classes
+      end
+
     ~F"""
-    <span class="sbui-btn-container">
+    <span class={Enum.join(container_classes, " ")}>
       <button
         id={@id}
         type={@html_type}
