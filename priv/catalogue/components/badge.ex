@@ -1,4 +1,4 @@
-defmodule SupabaseSurface.Components.Badge.Basic do
+defmodule SupabaseSurface.Catalogue.Badge.Basic do
   @moduledoc """
   ## Basic Badges
 
@@ -26,7 +26,7 @@ defmodule SupabaseSurface.Components.Badge.Basic do
   end
 end
 
-defmodule SupabaseSurface.Components.Badge.Dot do
+defmodule SupabaseSurface.Catalogue.Badge.Dot do
   @moduledoc """
   ## With Dot
 

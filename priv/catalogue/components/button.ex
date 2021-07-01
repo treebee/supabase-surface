@@ -1,4 +1,4 @@
-defmodule SupabaseSurface.Components.Button.Types do
+defmodule SupabaseSurface.Catalogue.Button.Types do
   @moduledoc """
   ## Button Types
 
@@ -28,7 +28,7 @@ defmodule SupabaseSurface.Components.Button.Types do
   end
 end
 
-defmodule SupabaseSurface.Components.Button.Size do
+defmodule SupabaseSurface.Catalogue.Button.Size do
   @moduledoc """
   ## Size
 
@@ -57,7 +57,7 @@ defmodule SupabaseSurface.Components.Button.Size do
   end
 end
 
-defmodule SupabaseSurface.Components.Button.States do
+defmodule SupabaseSurface.Catalogue.Button.States do
   @moduledoc """
   ## States
 
