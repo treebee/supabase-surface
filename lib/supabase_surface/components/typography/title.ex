@@ -1,6 +1,8 @@
 defmodule SupabaseSurface.Components.Typography.Title do
   use Surface.Component
 
+  import SupabaseSurface.Components.Utils
+
   @doc "The level for the resulting heading"
   prop level, :integer, values: [1, 2, 3, 4, 5], default: 1
 
@@ -46,9 +48,5 @@ defmodule SupabaseSurface.Components.Typography.Title do
     ~F"""
       <h5 class={"sbui-typography-title", @class} style={get_style(assigns)}><#slot /></h5>
     """
-  end
-
-  defp get_style(assigns) do
-    assigns.style |> Enum.map(fn {key, value} -> "#{key}: #{value}" end) |> Enum.join("; ")
   end
 end
