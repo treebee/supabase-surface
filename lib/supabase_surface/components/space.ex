@@ -2,6 +2,7 @@ defmodule SupabaseSurface.Components.Space do
   use Surface.Component
 
   import Surface.Components.Utils
+  import SupabaseSurface.Components.Utils
 
   slot default
 
@@ -15,14 +16,17 @@ defmodule SupabaseSurface.Components.Space do
 
   prop minus, :boolean, default: false
 
+  prop style, :keyword, default: []
+
   prop opts, :keyword, default: []
 
   def render(assigns) do
     classes = build_classes(assigns)
     attrs = opts_to_attrs(assigns.opts)
+    style = get_style(assigns)
 
     ~F"""
-    <div class={@class, classes} :attrs={attrs}><#slot /></div>
+    <div class={@class, classes} :attrs={attrs} style={style}><#slot /></div>
     """
   end
 
