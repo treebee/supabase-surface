@@ -54,11 +54,17 @@ defmodule SupabaseSurface.Components.Modal do
   @doc "Additional CSS classes for the overlay"
   prop overlay_class, :css_class, default: ""
 
+  @doc "To use a background for the footer"
   prop footer_background, :boolean, default: false
+
+  @doc "Where to put the buttons in the footer"
   prop align_footer, :string, values: ["right", "left"], default: "left"
 
   prop cancel_text, :string, default: "Cancel"
   prop confirm_text, :string, default: "Confirm"
+
+  @doc "Add 'x' icon to close the Modal"
+  prop closable, :boolean, default: false
 
   @doc "Modal content"
   slot default
@@ -129,6 +135,11 @@ defmodule SupabaseSurface.Components.Modal do
                   {footer(assigns)}
                 </div>
               {/if}
+              {#if @closable}
+                <div class="sbui-modal-close-container">
+                  <Button click="close" type="text">{Feathericons.x(class: "w-4 h-4")}</Button>
+                </div>
+              {/if}
             </div>
           </div>
         </div>
@@ -163,9 +174,8 @@ defmodule SupabaseSurface.Catalogue.Modal.Example do
     subject: SupabaseSurface.Components.Modal,
     height: "250px",
     direction: "vertical",
-    title: "Modal"
+    title: "Basic"
 
-  alias SupabaseSurface.Components.Divider
   alias SupabaseSurface.Components.Modal
   alias SupabaseSurface.Components.Typography
 
@@ -176,12 +186,6 @@ defmodule SupabaseSurface.Catalogue.Modal.Example do
       <Modal.Trigger click="open" />
       <Typography.Text>Modal content</Typography.Text>
     </Modal>
-    <Divider class="my-4" />
-    <Modal id="bg-modal" title="My Modal" description="This is the Modal description" footer_background>
-      <Modal.Trigger click="bg-open" label="Footer Background" />
-      <Typography.Text>Modal content</Typography.Text>
-    </Modal>
-
     """
   end
 
@@ -190,10 +194,112 @@ defmodule SupabaseSurface.Catalogue.Modal.Example do
     Modal.open("modal")
     {:noreply, socket}
   end
+end
+
+defmodule SupabaseSurface.Catalogue.Modal.FooterBackground do
+  use Surface.Catalogue.Example,
+    catalogue: SupabaseSurface.Catalogue,
+    subject: SupabaseSurface.Components.Modal,
+    height: "250px",
+    direction: "vertical",
+    title: "Footer Background"
+
+  alias SupabaseSurface.Components.Modal
+  alias SupabaseSurface.Components.Typography
+
+  @impl true
+  def render(assigns) do
+    ~F"""
+    <Modal id="bg-modal" title="My Modal" description="This is the Modal description" footer_background>
+      <Modal.Trigger click="bg-open" label="Footer Background" />
+      <Typography.Text>Modal content</Typography.Text>
+    </Modal>
+    """
+  end
 
   @impl true
   def handle_event("bg-open", _, socket) do
     Modal.open("bg-modal")
+    {:noreply, socket}
+  end
+end
+
+defmodule SupabaseSurface.Catalogue.Modal.FooterRightAligned do
+  use Surface.Catalogue.Example,
+    catalogue: SupabaseSurface.Catalogue,
+    subject: SupabaseSurface.Components.Modal,
+    height: "250px",
+    direction: "vertical",
+    title: "Footer right aligned"
+
+  alias SupabaseSurface.Components.Modal
+  alias SupabaseSurface.Components.Typography
+
+  @impl true
+  def render(assigns) do
+    ~F"""
+    <Modal id="right-modal" title="My Modal" description="This is the Modal description" footer_background align_footer="right">
+      <Modal.Trigger click="right-open" label="Footer right aligned" />
+      <Typography.Text>Modal content</Typography.Text>
+    </Modal>
+    """
+  end
+
+  @impl true
+  def handle_event("right-open", _, socket) do
+    Modal.open("right-modal")
+    {:noreply, socket}
+  end
+end
+
+defmodule SupabaseSurface.Catalogue.Modal.Vertical do
+  use Surface.Catalogue.Example,
+    catalogue: SupabaseSurface.Catalogue,
+    subject: SupabaseSurface.Components.Modal,
+    height: "250px",
+    direction: "vertical",
+    title: "Vertical"
+
+  alias SupabaseSurface.Components.Modal
+
+  @impl true
+  def render(assigns) do
+    ~F"""
+    <Modal id="modal" title="My Modal" description="This is the Modal description" layout="vertical" size="small">
+      <Modal.Trigger click="open" label="Open" />
+    </Modal>
+    """
+  end
+
+  @impl true
+  def handle_event("open", _, socket) do
+    Modal.open("modal")
+    {:noreply, socket}
+  end
+end
+
+defmodule SupabaseSurface.Catalogue.Modal.Closable do
+  use Surface.Catalogue.Example,
+    catalogue: SupabaseSurface.Catalogue,
+    subject: SupabaseSurface.Components.Modal,
+    height: "250px",
+    direction: "vertical",
+    title: "Closable"
+
+  alias SupabaseSurface.Components.Modal
+
+  @impl true
+  def render(assigns) do
+    ~F"""
+    <Modal id="modal" title="My Modal" description="This is the Modal description" closable>
+      <Modal.Trigger click="open" label="Open" />
+    </Modal>
+    """
+  end
+
+  @impl true
+  def handle_event("open", _, socket) do
+    Modal.open("modal")
     {:noreply, socket}
   end
 end
