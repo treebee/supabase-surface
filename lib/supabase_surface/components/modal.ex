@@ -108,11 +108,11 @@ defmodule SupabaseSurface.Components.Modal do
     <div class={Enum.join(container_classes, " ")} :if={@visible}>
       <div class="sbui-modal-flex-container">
         <div class="sbui-modal-overlay-container">
-          <div class={overlay_classes}></div>
+          <div class={overlay_classes} :on-click="close"></div>
           <span class="sbui-modal-div-trick"></span>
-          <div class="fixed inset-0 overflow-y-auto" :on-click="close">
+          <div class="fixed inset-0 overflow-y-auto" :on-capture-click="close">
             <div class={modal_classes} role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-              <div class="sbui-modal-content">
+              <div class="sbui-modal-content z-10">
                 <Space size={5} direction={@layout} style={"align-items": (if @layout == "vertical", do: "center", else: "flex-start")}>
                   <Space size={4} direction="vertical" style={"align-items": "flex-start", "text-align": (if @layout == "vertical", do: "center", else: nil), width: "100%"}>
                     <span style={ width: "inherit" }>
