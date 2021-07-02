@@ -40,7 +40,7 @@ defmodule SupabaseSurface.Components.Modal do
   prop hide_footer, :boolean, default: false
 
   @doc "The Modal size"
-  prop size, :string, values: ["tiny", "small", "medium", "large"]
+  prop size, :string, values: ["tiny", "small", "medium", "large"], default: "large"
 
   @doc "Variant for the Modal"
   prop variant, :string, values: ["danger", "warning", "success"], default: "success"
@@ -55,6 +55,7 @@ defmodule SupabaseSurface.Components.Modal do
   prop overlay_class, :css_class, default: ""
 
   prop footer_background, :boolean, default: false
+  prop align_footer, :string, values: ["right", "left"], default: "left"
 
   prop cancel_text, :string, default: "Cancel"
   prop confirm_text, :string, default: "Confirm"
@@ -65,11 +66,15 @@ defmodule SupabaseSurface.Components.Modal do
   @doc "Slot for the trigger element to open the Modal"
   slot trigger
 
-  def footer(%{hide_footer: true}), do: ""
+  defp footer_layout(%{layout: "vertical"}), do: "center"
+  defp footer_layout(%{align_footer: "left"}), do: "flex-start"
+  defp footer_layout(_assigns), do: "flex-end"
 
-  def footer(assigns) do
+  defp footer(%{hide_footer: true}), do: ""
+
+  defp footer(assigns) do
     ~F"""
-    <Space>
+    <Space style={width: "100%", "justify-content": footer_layout(assigns)}>
       <Button type="outline" click="close">{@cancel_text}</Button>
       <Button click="confirm">{@confirm_text}</Button>
     </Space>
@@ -102,8 +107,8 @@ defmodule SupabaseSurface.Components.Modal do
           <div class="fixed inset-0 overflow-y-auto" :on-click="close">
             <div class={modal_classes} role="dialog" aria-modal="true" aria-labelledby="modal-headline">
               <div class="sbui-modal-content">
-                <Space size={5} direction={@layout}>
-                  <Space size={4} direction="vertical">
+                <Space size={5} direction={@layout} style={"align-items": (if @layout == "vertical", do: "center", else: "flex-start")}>
+                  <Space size={4} direction="vertical" style={"align-items": "flex-start", "text-align": (if @layout == "vertical", do: "center", else: nil), width: "100%"}>
                     <span style={ width: "inherit" }>
                       {#if not is_nil(@title)}
                         <Typography.Title style={ "margin-bottom": ".1rem", "margin-top": "0" } level={4}>{@title}</Typography.Title>
@@ -156,7 +161,7 @@ defmodule SupabaseSurface.Catalogue.Modal.Example do
   use Surface.Catalogue.Example,
     catalogue: SupabaseSurface.Catalogue,
     subject: SupabaseSurface.Components.Modal,
-    height: "400px",
+    height: "250px",
     direction: "vertical",
     title: "Modal"
 
