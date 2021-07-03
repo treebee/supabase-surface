@@ -20,6 +20,19 @@ defmodule SupabaseSurface.Components.Modal.Trigger do
   end
 end
 
+defmodule SupabaseSurface.Components.Modal.Icon do
+  use Surface.Component, slot: "icon"
+
+  slot default
+
+  @impl true
+  def render(assigns) do
+    ~F"""
+    <#slot />
+    """
+  end
+end
+
 defmodule SupabaseSurface.Components.Modal do
   use Surface.LiveComponent
 
@@ -72,6 +85,9 @@ defmodule SupabaseSurface.Components.Modal do
   @doc "Slot for the trigger element to open the Modal"
   slot trigger
 
+  @doc "Slot for additional icon"
+  slot icon
+
   defp footer_layout(%{layout: "vertical"}), do: "center"
   defp footer_layout(%{align_footer: "left"}), do: "flex-start"
   defp footer_layout(_assigns), do: "flex-end"
@@ -114,6 +130,7 @@ defmodule SupabaseSurface.Components.Modal do
             <div class={modal_classes} role="dialog" aria-modal="true" aria-labelledby="modal-headline">
               <div class="sbui-modal-content z-10">
                 <Space size={5} direction={@layout} style={"align-items": (if @layout == "vertical", do: "center", else: "flex-start")}>
+                  <#slot name="icon" />
                   <Space size={4} direction="vertical" style={"align-items": "flex-start", "text-align": (if @layout == "vertical", do: "center", else: nil), width: "100%"}>
                     <span style={ width: "inherit" }>
                       {#if not is_nil(@title)}
@@ -293,6 +310,34 @@ defmodule SupabaseSurface.Catalogue.Modal.Closable do
     ~F"""
     <Modal id="modal" title="My Modal" description="This is the Modal description" closable>
       <Modal.Trigger click="open" label="Open" />
+    </Modal>
+    """
+  end
+
+  @impl true
+  def handle_event("open", _, socket) do
+    Modal.open("modal")
+    {:noreply, socket}
+  end
+end
+
+defmodule SupabaseSurface.Catalogue.Modal.Icon do
+  use Surface.Catalogue.Example,
+    catalogue: SupabaseSurface.Catalogue,
+    subject: SupabaseSurface.Components.Modal,
+    height: "250px",
+    direction: "vertical",
+    title: "Icon"
+
+  alias SupabaseSurface.Components.Modal
+  alias SupabaseSurface.Components.Icons.IconAlertCircle
+
+  @impl true
+  def render(assigns) do
+    ~F"""
+    <Modal id="modal" title="My Modal" description="This is the Modal description" closable>
+      <Modal.Trigger click="open" label="Open" />
+      <Modal.Icon><IconAlertCircle background="brand" /></Modal.Icon>
     </Modal>
     """
   end
