@@ -3,6 +3,8 @@
 ## Unreleased
 
 * add `Tabs` component
+* add multiple Icon components (feather icons)
+* add `Modal` component
 
 ## v0.3.1 (2021-07-21)
 
