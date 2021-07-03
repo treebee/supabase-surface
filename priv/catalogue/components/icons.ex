@@ -4,14 +4,16 @@ defmodule SupabaseSurface.Catalogue.Icons do
     catalogue: SupabaseSurface.Catalogue,
     height: "200px"
 
-  alias SupabaseSurface.Components.IconActivity
-  alias SupabaseSurface.Components.IconAlertCircle
+  alias SupabaseSurface.Components.Icons.IconActivity
+  alias SupabaseSurface.Components.Icons.IconAlertCircle
+  alias SupabaseSurface.Components.Icons.IconYoutube
 
   def render(assigns) do
     ~F"""
-    <div class="flex">
+    <div class="flex gap-2">
       <IconActivity background="brand" />
       <IconAlertCircle background="purple" />
+      <IconYoutube background="red" />
     </div>
     """
   end
