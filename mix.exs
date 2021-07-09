@@ -89,7 +89,7 @@ defmodule SupabaseSurface.MixProject do
       {:heroicons, "~> 0.2.2"},
       {:joken, "~> 2.0"},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false},
-      {:feathericons, "~> 0.1.0"}
+      {:feathericons, "~> 0.2.0"}
     ]
   end
 
