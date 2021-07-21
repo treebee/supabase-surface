@@ -161,10 +161,7 @@ defmodule SupabaseSurface.Components.Dropdown do
       <div
         x-data="{ open: false }"
         class="relative inline-block">
-          <#slot
-            @click="open = !open"
-            @click.away="open = false"
-          />
+          <#slot />
         <div
           x-cloak
           x-show="open"
