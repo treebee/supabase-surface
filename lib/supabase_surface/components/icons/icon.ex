@@ -31,12 +31,12 @@ defmodule SupabaseSurface.Components.Icon do
         if is_nil(props.background) do
           container_classes
         else
-          container_classes ++ ["sbui-icon-container--#{props.background}"]
+          container_classes ++ ["sbui-icon-container--#{props.background}", "inline-flex"]
         end
 
       ~F"""
       <div class={Enum.join(container_classes, " ")}>
-        <#slot size={icon_size} />
+        <#slot />
       </div>
       """
     end
