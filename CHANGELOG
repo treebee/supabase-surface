@@ -1,7 +1,8 @@
 # CHANGELOG
 
-## Unreleased
+## v0.4.0 (2021-08-06)
 
+* fix `slots` usage for latest `surface` version (0.5.2)
 * add `Tabs` component
 * add multiple Icon components (feather icons)
 * add `Modal` component
