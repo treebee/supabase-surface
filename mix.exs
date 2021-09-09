@@ -1,7 +1,7 @@
 defmodule SupabaseSurface.MixProject do
   use Mix.Project
 
-  @version "0.4.0"
+  @version "0.4.1"
   def project do
     [
       app: :supabase_surface,
@@ -76,16 +76,16 @@ defmodule SupabaseSurface.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.5.8"},
-      {:phoenix_live_view, "~> 0.15.1"},
+      {:phoenix, ">= 1.5.0"},
+      {:phoenix_live_view, ">= 0.15.1"},
       {:floki, ">= 0.27.0", only: :test},
-      {:phoenix_html, "~> 2.11"},
+      {:phoenix_html, ">= 2.11.0"},
       {:phoenix_live_reload, "~> 1.2", only: [:dev, :test]},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:surface, "~> 0.5.0"},
       {:surface_catalogue, "~> 0.1.0", only: [:dev, :test]},
-      {:supabase, "~> 0.1.0"},
+      {:supabase, ">= 0.1.0"},
       {:heroicons, "~> 0.2.2"},
       {:joken, "~> 2.0"},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false},
